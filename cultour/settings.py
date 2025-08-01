@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'festivals.apps.FestivalsConfig',
     'tours.apps.ToursConfig',
     'bookings.apps.BookingsConfig',
+    'places.apps.PlacesConfig',
+    'restaurants.apps.RestaurantsConfig',
+    'hotels.apps.HotelsConfig',
 ]
 
 MIDDLEWARE = [

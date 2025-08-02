@@ -1,0 +1,29 @@
+{% comment %} <div class="pagination">
+<span class="step-links">
+{% if page.has_previous %}
+<a href="?page={{ page.previous_page_number }}">Previous</a>
+{% endif %}
+<span class="current">
+Page {{ page.number }} of {{ page.paginator.num_pages }}.
+</span>
+{% if page.has_next %}
+<a href="?page={{ page.next_page_number }}">Next</a>
+{% endif %}
+</span>
+</div> {% endcomment %}
+
+<div class="row mt-5">
+    <div class="col text-center">
+    <div class="block-27">
+        <ul>
+        <li><a href="#">&lt;</a></li>
+        <li class="active"><span>1</span></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&gt;</a></li>
+        </ul>
+    </div>
+    </div>
+</div>

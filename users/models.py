@@ -10,6 +10,7 @@ class Tourist(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

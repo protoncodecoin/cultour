@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 # Register your models here.
 @admin.register(Tourist)
 class TouristAdmin(admin.ModelAdmin):
-    list_display = ["country", "createdon", "updatedon", "user"]
+    list_display = ["createdon", "updatedon", "user"]
     list_filter = ["createdon", "updatedon"]
     ordering = ["createdon", "updatedon"]
 
@@ -29,7 +29,6 @@ class HotelOwner(admin.ModelAdmin):
     list_display = [
         "user",
         "image",
-        "country",
         "createdon",
         "updatedon",
     ]

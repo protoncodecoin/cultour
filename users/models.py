@@ -1,13 +1,15 @@
 from django.contrib.auth.models import User
 from django.db import models
-from places.models import Country
+
+from django_countries.fields import CountryField
 
 
 # Create your models here.
 class Tourist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="images", null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    # country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    t_country = CountryField(blank=True)
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=False)
@@ -20,7 +22,9 @@ class Tourist(models.Model):
 class TourSiteOwner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="images", null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    # country = models.ForeignKey(C, on_delete=models.CASCADE)
+    t_country = CountryField(blank=True)
+
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
 
@@ -32,7 +36,8 @@ class TourSiteOwner(models.Model):
 class HotelOwner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="images", null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    # country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    t_country = CountryField(blank=True)
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
 
@@ -43,7 +48,8 @@ class HotelOwner(models.Model):
 class RestaurantOwner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="images", null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    # country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    t_country = CountryField(blank=True)
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
 

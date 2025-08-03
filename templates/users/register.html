@@ -1,4 +1,6 @@
 {% load static %}
+{% load countries %}
+{% get_countries as countries %}
 
 <!doctype html>
 <html lang="en">
@@ -64,6 +66,18 @@
 
       <label for="inputEmail" class="sr-only">Email</label>
       <input type="email" id="inputEmail" class="form-control cs-mrgn-btm" placeholder="Email" name="email" required autofocus>
+
+      {% comment %} <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01"> Country</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name="country">
+          <option selected>Choose country...</option>
+          {% for country in countries %}
+          <option value="{{country.code}}">{{country.name}}</option>
+          {% endfor %}
+        </select>
+      </div> {% endcomment %}
 
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password1" required>

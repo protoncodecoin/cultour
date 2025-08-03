@@ -1,22 +1,22 @@
 from django.contrib import admin
 
-from places.models import City, Country, State
+from places.models import City, State
 
 # Register your models here.
 
 
-@admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
-    list_display = ["name", "currency", "createdon", "updatedon"]
-    list_filter = ["name", "createdon", "updatedon"]
-    ordering = ["createdon", "updatedon"]
-    search_fields = ["name"]
+# @admin.register(Country)
+# class CountryAdmin(admin.ModelAdmin):
+#     list_display = ["name", "currency", "createdon", "updatedon"]
+#     list_filter = ["name", "createdon", "updatedon"]
+#     ordering = ["createdon", "updatedon"]
+#     search_fields = ["name"]
 
 
 @admin.register(State)
 class StateAdmin(admin.ModelAdmin):
-    list_display = ["name", "country", "createdon", "updatedon"]
-    list_filter = ["name", "country", "createdon", "updatedon"]
+    list_display = ["name", "createdon", "updatedon"]
+    list_filter = ["name", "createdon", "updatedon"]
     search_fields = ["name"]
     ordering = ["createdon", "updatedon"]
 

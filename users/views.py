@@ -16,6 +16,9 @@ from users.models import Tourist
 
 from .token import generate_token
 
+from django_countries import Countries
+
+
 User = get_user_model()
 
 
@@ -58,6 +61,8 @@ def signup(request):
         email = request.POST.get("email")
         password = request.POST.get("password1")
         password2 = request.POST.get("password2")
+        # country = request.POST.get("country")
+
         # # validate username and email
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already exists.")
@@ -74,8 +79,8 @@ def signup(request):
 
         # create use object
         new_user = User.objects.create_user(username, email, password)
-        new_user.save()
         new_user.is_active = False
+        new_user.save()
 
         # send welcome email
         subject = "Welcome to cultour."
@@ -87,13 +92,15 @@ def signup(request):
         # send email confirmation link
         current_site = get_current_site(request)
         email_subject = "Confirm Your Email Address!"
+        token = generate_token.make_token(new_user)
+        print(token)
         messages2 = render_to_string(
             "users/email_confirmation.html",
             {
                 "name": new_user.username,
                 "domain": current_site.domain,
                 "uid": urlsafe_base64_encode(force_bytes(new_user.pk)),
-                "token": generate_token.make_token(new_user),
+                "token": token,
             },
         )
 
@@ -103,7 +110,10 @@ def signup(request):
             settings.EMAIL_HOST_USER,
             [new_user.email],
         )
-        send_mail(email_subject, messages2, from_email, to_list, fail_silently=True)
+        # send_mail(email_subject, messages2, from_email, to_list, fail_silently=True)
+        email.content_subtype = "html"  # Set content type to HTML
+        email.send(fail_silently=True)
+
         messages.success(
             request,
             "Your account has been created successfully🥳🎊! Please check your email to confirm your email address and activate your account.",
@@ -116,6 +126,7 @@ def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         new_user = User.objects.get(pk=uid)
+
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         new_user = None
 
@@ -126,7 +137,7 @@ def activate(request, uidb64, token):
         tourist = Tourist.objects.create(user=new_user)
         tourist.is_active = True
         tourist.save()
-        login(request, new_user, backend="django.contrib.auth.backends.ModelBackend")
+        login(request, new_user)
         messages.success(
             request,
             "Your account has been activated!\n\nCheck your Profile to Update it and have Fun🎉🎉🍾.",
@@ -139,3 +150,7 @@ def activate(request, uidb64, token):
 def user_logout(request):
     logout(request)
     return redirect("users:login")
+
+
+def dashboard(request):
+    return render(request, "users/dashboard.html")

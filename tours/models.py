@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from places.models import City, Country
+from places.models import City
 from users.models import Tourist, TourSiteOwner
 
 
@@ -33,7 +33,3 @@ class Tour(models.Model):
 
     def __str__(self):
         return f"{self.city.name} -> {self.site.name}"
-
-
-
-

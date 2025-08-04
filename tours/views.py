@@ -8,7 +8,9 @@ from tours.models import TourSite
 
 # Create your views here.
 def index(request):
-    return render(request, "common/index.html")
+    states = State.objects.all()
+    context = {"states": states}
+    return render(request, "common/index.html", context=context)
 
 
 def about(request):

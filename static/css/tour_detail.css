@@ -10,7 +10,7 @@
 }
 
 .other-info-sub-container {
-    background-color: rgb(194, 194, 194);
+    background-color: rgb(194, 194, 194,  0.404);
     margin-right: 10px;
     margin-top: 10px;
     padding: 10px;
@@ -24,7 +24,33 @@
 
 .festival-name {
     margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.rating-star {
+    color: gold;
+    /* background-color: gold; */
+}
+
+.rating {
+    font-size: 20px;
+    background-color: rgba(233, 233, 233, 0.404);
+    padding: 4px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-left: 10px;
+
+}
+
+.carousel-item img {
+      cursor: pointer;
+      object-fit: cover;
+      height: 600px;
+      width: 100%;
+    }
+
 
 
 /* small devices (landscape phones, 576px and up) */
@@ -54,4 +80,34 @@
         margin: 10px;
         font-weight: 600;
 }
+
+/* .rating {
+    font-size: 20px;
+    background-color: rgba(233, 233, 233, 0.404);
+    padding: 4px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-left: 10px;
+
+} */
  }
+
+
+
+    /* .carousel-item img {
+      cursor: pointer;
+      object-fit: cover;
+      height: 400px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-item img {
+        height: 250px;
+      }
+    }
+
+    .modal-img {
+      width: 100%;
+      height: auto;
+    } */

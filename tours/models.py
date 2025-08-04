@@ -15,6 +15,7 @@ class TourSite(models.Model):
     rating = models.DecimalField(decimal_places=2, max_digits=3)
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
+    is_top_tour = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

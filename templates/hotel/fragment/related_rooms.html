@@ -1,0 +1,41 @@
+<div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+	<h4 class="mb-4">Our Rooms {{ hotel_pk}}</h4>
+	<div class="row">
+
+		{% for room in hotel_rooms %}
+		<div class="col-md-5">
+			<div class="destination">
+				<a href="hotel-single.html" class="img img-2" style="background-image: url({{room.image.url}});"></a>
+				<div class="text p-3">
+					<div class="d-flex">
+						<div class="one">
+							<h3><a href="hotel-single.html">{{ room.name }}, {{room.room_type}}</a></h3>
+							<p class="rate">
+								<i class="icon-star"></i>
+								<i class="icon-star"></i>
+								<i class="icon-star"></i>
+								<i class="icon-star"></i>
+								<i class="icon-star-o"></i>
+								<span>{{room.rating }} Rating</span>
+							</p>
+						</div>
+						<div class="two">
+							<span class="price per-price">${{room.fee}}<br><small>/night</small></span>
+						</div>
+					</div>
+					<p>{{room.notes | truncatechars:50 }}</p>
+					<hr>
+					<p class="bottom-area d-flex">
+						<span><i class="icon-map-o"></i> {{room.hotel.city.name}}, {{room.hotel.city.state.name}}</span> 
+						<span class="ml-auto"><a href="{% url 'hotels:room_detail' room.hotel.pk room.pk %}">View</a></span>
+					</p>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+	</div>
+	<div style="display: flex; align-items: center; justify-content: center;">
+		<a class="btn btn-success mb-4" href="{% url 'hotels:rooms' hotel_id %}">View More</a>
+	</div>
+</div>

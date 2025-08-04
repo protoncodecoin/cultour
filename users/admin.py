@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from users.models import HotelOwner, RestaurantOwner, TourSiteOwner, Tourist
+from users.models import (
+    FestivalOwner,
+    HotelOwner,
+    RestaurantOwner,
+    TourSiteOwner,
+    Tourist,
+)
 from django.contrib.auth.models import User
 
 
@@ -15,6 +21,12 @@ class TouristAdmin(admin.ModelAdmin):
     list_display = ["createdon", "updatedon", "user"]
     list_filter = ["createdon", "updatedon"]
     ordering = ["createdon", "updatedon"]
+
+
+@admin.register(FestivalOwner)
+class FestivalAdmin(admin.ModelAdmin):
+    list_display = ["user", "createdon", "updatedon"]
+    list_filter = ["createdon"]
 
 
 @admin.register(TourSiteOwner)

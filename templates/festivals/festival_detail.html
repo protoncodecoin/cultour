@@ -47,25 +47,25 @@
 	<div class="container">
 		<div class="row justify-content-md-center">
 			<div class="col-md-auto">
-			<h2 class="festival-name">Asafotufiam Festival</h2>
+			<h2 class="festival-name">{{object.name}}</h2>
 			</div>
 		</div>
 
 		<div class="row justify-content-md-center">
 			<div class="col-md-auto">
-				<p class="location-info"> <span style="font-size: 35px; location-icon"><i class="bi bi-geo-alt-fill"></i></span> Ayiduase, Ghana</p>
+				<p class="location-info"> <span style="font-size: 35px; location-icon"><i class="bi bi-geo-alt-fill"></i></span> {{object.city.name}}, {{object.city.state.name}}</p>
     		</div>
 		</div>
 
 		<div class="row justify-content-md-center other-info">
 			<div class="col-md-auto other-info-sub-container">
-				Greater Accra
+				{{object.category}}
 			</div>
 			<div class="col-md-auto other-info-sub-container">
-				Adai
+				{{object.name}}
 			</div>
 			<div class="col-md-auto other-info-sub-container">
-				May Every Year
+				{{object.month_of_celebration}} Every Year
 			</div>
   		</div>
 

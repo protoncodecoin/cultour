@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "restaurants.apps.RestaurantsConfig",
     "hotels.apps.HotelsConfig",
     "django_countries",
+    "gallery.apps.GalleryConfig",
 ]
 
 MIDDLEWARE = [

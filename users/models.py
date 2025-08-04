@@ -55,3 +55,14 @@ class RestaurantOwner(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class FestivalOwner(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="images", null=True, blank=True)
+    country = CountryField(blank=True)
+    createdon = models.DateField(auto_now_add=True)
+    updatedon = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username

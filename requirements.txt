@@ -1,7 +1,10 @@
 asgiref==3.9.1
 Django==5.2.4
+django-countries==7.6.1
+django-environ==0.11.2
 djangorestframework==3.16.0
 pillow==11.3.0
 psycopg2==2.9.10
+pyuca==1.2
 sqlparse==0.5.3
-django-environ==0.11.2
+typing_extensions==4.14.1

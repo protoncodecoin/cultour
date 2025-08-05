@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     "hotels.apps.HotelsConfig",
     "django_countries",
     "gallery.apps.GalleryConfig",
+    "rest_framework",
+    "ratings.apps.RatingsConfig",
 ]
 
 MIDDLEWARE = [
@@ -161,3 +163,13 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}

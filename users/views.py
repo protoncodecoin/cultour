@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib import messages
-
+from django.views.generic import ListView, DetailView
 
 from django.core.mail import EmailMessage, send_mail
 
@@ -12,6 +12,8 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 
+from restaurants.models import TableReservation
+from tours.models import Tour, TourSite
 from users.models import Tourist
 
 from .token import generate_token
@@ -152,5 +154,18 @@ def user_logout(request):
     return redirect("users:login")
 
 
-def dashboard(request):
-    return render(request, "users/dashboard.html")
+# def dashboard(request):
+#     return render(request, "users/dashboard.html")
+class DashBoardView(DetailView):
+    # queryset = Tourist.objects.all()
+    model = Tourist
+    context_object_name = "tourists"
+    template_name = "users/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["booked_toursites"] = Tour.objects.filter(tourist=self.object)
+        context["table_reservations"] = TableReservation.objects.filter(
+            user=self.object
+        )
+        return context

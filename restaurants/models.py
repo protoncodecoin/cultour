@@ -47,7 +47,10 @@ class RestaurantTable(models.Model):
         Restaurant, on_delete=models.CASCADE, related_name="tables"
     )
     image = models.ImageField(
-        upload_to="images/restaurant_tables/", blank=True, null=True
+        upload_to="images/restaurant_tables/",
+        blank=True,
+        null=True,
+        default="images/default/default.jpg",
     )
     table_number = models.CharField(max_length=10, unique=True)
     seats = models.PositiveIntegerField()

@@ -27,146 +27,103 @@
       <div class="album py-5 bg-light">
         <div class="container">
 
+          <h3>Hotel Reservation</h3>
           <div class="row">
+            {% for reservation in table_reservations %}
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+              <img class="card-img-top img-fluid fixed-img" src="{{ reservation.table.image.url }}" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text">{{reservation.notes|truncatechars:100}}</p>
+                  <br>
+                  <p  class="card-text">Restaurant: <span style="font-weight: 600;"> {{reservation.table.restaurant.name}}</span> 
+                  <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Date: {{reservation.reservation_date}}</span> 
+                     <span style="padding-left: 7px;">Time: {{reservation.reservation_time}}</span>
+                  </p>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Table N0:  {{reservation.table.table_number}}</span> 
+                     <span >Seats: {{reservation.table.seats}}</span>
+                  </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">Guests: {{reservation.guests}}</small>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
+ 
+          </div>
 
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+          
 
+          {% if table_reservations %}
+
+            <h3>Restaurant Table Reservation</h3>
+          <div class="row">
+            {% for reservation in table_reservations %}
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+              <img class="card-img-top img-fluid fixed-img" src="{{ reservation.table.image.url }}" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text">{{reservation.notes|truncatechars:100}}</p>
+                  <br>
+                  <p  class="card-text">Restaurant: <span style="font-weight: 600;"> {{reservation.table.restaurant.name}}</span> 
+                  <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Date: {{reservation.reservation_date}}</span> 
+                     <span style="padding-left: 7px;">Time: {{reservation.reservation_time}}</span>
+                  </p>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Table N0:  {{reservation.table.table_number}}</span> 
+                     <span >Seats: {{reservation.table.seats}}</span>
+                  </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">Guests: {{reservation.guests}}</small>
                   </div>
                 </div>
               </div>
             </div>
+            {% endfor %}
+ 
+          </div>
+
+          {% endif %}
+          
+          {% if booked_toursites %}
+        <h3>Favorited Tourist Sites</h3>
+         <div class="row">
+            {% for book_tour in booked_toursites %}
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                <img class="card-img-top img-fluid fixed-img" src="{{ book_tour.site.image1 }}" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text">{{book_tour.notes|truncatechars:100}}</p>
+                  <br>
+                  <p  class="card-text">Tour: <span style="font-weight: 600;"> {{book_tour.site.name}}</span> 
+                  <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Start Date: {{book_tour.start_datetime}}</span> 
+                     <span style="padding-left: 7px;">End Date: {{book_tour.end_datetime}}</span>
+                  </p>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>City:  {{book_tour.site.city.name}}</span> 
+                     <span >Region: {{book_tour.ste.city.state.name}}</span>
+                  </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">Fee: {{book_tour.fee}}</small>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
+          {% endif %}
       </div>
 
     </main>

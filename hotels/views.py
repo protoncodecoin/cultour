@@ -57,3 +57,10 @@ class RoomDetailView(DetailView):
     def get_object(self, queryset=None):
         room_pk = self.kwargs["room_pk"]
         return HotelRoom.objects.get(pk=room_pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["room_id"] = self.object.pk
+        context["hotel_id"] = self.kwargs["pk"]
+
+        return context

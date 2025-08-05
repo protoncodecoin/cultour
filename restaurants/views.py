@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
 
+from places.models import State
 from restaurants.models import Restaurant, RestaurantFood, RestaurantTable
 
 
@@ -35,4 +36,10 @@ class RestaurantDetailView(DetailView):
         context["current_page"] = "restaurant"
         context["foods"] = RestaurantFood.objects.filter(restaurant=self.object)
         context["tables"] = RestaurantTable.objects.filter(restaurant=self.object)
+        context["states"] = State.objects.all()
         return context
+
+    # def post(self, request, *args, **kwargs):
+    #     """
+    #     Save booked reservation.
+    #     """

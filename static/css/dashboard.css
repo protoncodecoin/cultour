@@ -35,3 +35,16 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+
+  .fixed-img {
+    height: 200px;         /* Fixed height */
+    width: 100%;           /* Fill width of parent */
+    object-fit: cover;     /* Maintain aspect ratio, crop if needed */
+    display: block;        /* Avoid unexpected inline gaps */
+  }
+
+  @media (max-width: 768px) {
+    .fixed-img {
+      height: 150px;       /* Smaller height on mobile */
+    }
+  }

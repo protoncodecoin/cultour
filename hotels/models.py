@@ -1,7 +1,8 @@
 from django.db import models
 from gallery.models import Media
 from places.models import City
-from users.models import HotelOwner
+from users.models import HotelOwner, Tourist
+from django.utils import timezone
 
 
 # Create your models here.
@@ -57,3 +58,41 @@ class HotelRoom(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class HotelReservation(models.Model):
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("confirmed", "Confirmed"),
+        ("cancelled", "Cancelled"),
+        ("completed", "Completed"),
+    ]
+
+    user = models.ForeignKey(Tourist, on_delete=models.CASCADE)
+    hotel = models.ForeignKey(
+        "Hotel", on_delete=models.CASCADE, related_name="reservations"
+    )
+    room = models.ForeignKey(
+        "HotelRoom", on_delete=models.CASCADE, related_name="reservations"
+    )
+    guests = models.PositiveIntegerField(default=1)
+    check_in = models.DateField()
+    check_out = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    special_requests = models.TextField(blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_on"]
+        unique_together = ["room", "check_in", "check_out"]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.room.name} ({self.check_in} to {self.check_out})"
+
+    def duration(self):
+        return (self.check_out - self.check_in).days
+
+    def is_active(self):
+        today = timezone.now().date()
+        return self.check_in <= today <= self.check_out

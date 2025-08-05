@@ -61,7 +61,7 @@
           <li class="nav-item {% if current_page == "contact"%} active {% else %} "" {% endif %} "><a href="{% url 'tours:contact' %}" class="nav-link">Contact</a></li>
 
           {% if user.is_authenticated %}
-          <li class="nav-item cta"><a href="{% url 'users:dashboard' %}" class="nav-link"><span>My Account</span></a></li>
+          <li class="nav-item cta"><a href="{% url 'users:dashboard' user.tourist.pk %}" class="nav-link"><span>My Account</span></a></li>
           {% else %}
           <li class="nav-item cta"><a href="{% url 'users:signup' %}" class="nav-link"><span>Sign Up</span></a></li>
           {% endif %}
@@ -144,6 +144,11 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
+  
+  {% block include_js %} 
+  {% endblock %}
+  
+  
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
   <script src="{% static 'js/popper.min.js' %}"></script>

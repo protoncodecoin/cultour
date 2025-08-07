@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
@@ -47,6 +49,10 @@ class RoomListView(ListView):
     context_object_name = "rooms"
     paginate_by = 10
     template_name = "hotel/room_list.html"
+
+    def get_queryset(self) -> QuerySet[Any]:
+        queryset = super().get_queryset()
+        return queryset.filter(hotel=self.kwargs["pk"])
 
 
 class RoomDetailView(DetailView):

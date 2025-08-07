@@ -7,13 +7,9 @@ register = template.Library()
 
 
 @register.inclusion_tag("restaurant/fragment/popular_restaurants.html")
-def show_hotel_related_rooms(restaurant_id, count=4):
+def show_popular_restaurants():
     # Get all IDs
-    ids = list(Restaurant.objects.values_list("id", flat=True))
-
-    # Choose random IDs
-    random_ids = random.sample(ids, 2)
-
-    # Get objects with those IDs
-    random_objects = Restaurant.objects.filter(id__in=random_ids)
-    return {"resturants": random_objects, "restaurant_id": restaurant_id}
+    # random_objects = Restaurant.objects.filter(id__in=random_ids)
+    random_objects = Restaurant.objects.all()[:5]
+    print(random_objects)
+    return {"restaurants": random_objects}

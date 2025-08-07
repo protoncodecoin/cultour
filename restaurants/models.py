@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from places.models import City
 from users.models import RestaurantOwner, Tourist
@@ -48,8 +49,6 @@ class RestaurantTable(models.Model):
     )
     image = models.ImageField(
         upload_to="images/restaurant_tables/",
-        blank=True,
-        null=True,
         default="images/default/default.jpg",
     )
     table_number = models.CharField(max_length=10, unique=True)
@@ -69,8 +68,13 @@ class TableReservation(models.Model):
     reservation_time = models.TimeField()
     guests = models.PositiveIntegerField()
     notes = models.TextField(blank=True)
+    is_paid = models.BooleanField(default=False)
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Reservation by {self.user.user.username} on {self.reservation_date} at {self.reservation_time}"
+
+    def is_active(self):
+        today = timezone.now().date()
+        return self.reservation_date <= today

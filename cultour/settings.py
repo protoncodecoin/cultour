@@ -12,14 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-import environ
 
+from dotenv import load_dotenv
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +30,7 @@ SECRET_KEY = "django-insecure-k_q2ezmgzm)-i*pq(q-4$0o@rmxwqd7we1t750+bi1e+r3z%p8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["10.10.60.55", "*"]
 
 
 # Application definition
@@ -57,6 +53,8 @@ INSTALLED_APPS = [
     "gallery.apps.GalleryConfig",
     "rest_framework",
     "ratings.apps.RatingsConfig",
+    "payment.apps.PaymentConfig",
+    "django.contrib.postgres",
 ]
 
 MIDDLEWARE = [
@@ -92,10 +90,21 @@ WSGI_APPLICATION = "cultour.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
     }
 }
 
@@ -158,11 +167,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Email Backend
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_USE_TLS = True
-EMAIL_PORT = os.environ.get("EMAIL_PORT")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 
 REST_FRAMEWORK = {
@@ -173,3 +182,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ],
 }
+
+
+PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
+PAYSTACK_PUBLIC_KEY = os.getenv("PAYSTACK_PUBLIC_KEY")

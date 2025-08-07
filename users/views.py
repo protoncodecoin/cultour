@@ -12,6 +12,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 
+from hotels.models import HotelReservation
 from restaurants.models import TableReservation
 from tours.models import Tour, TourSite
 from users.models import Tourist
@@ -164,8 +165,11 @@ class DashBoardView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["booked_toursites"] = Tour.objects.filter(tourist=self.object)
+        context["booked_toursites"] = Tour.objects.all()
         context["table_reservations"] = TableReservation.objects.filter(
+            user=self.object
+        )
+        context["hotel_reservations"] = HotelReservation.objects.filter(
             user=self.object
         )
         return context

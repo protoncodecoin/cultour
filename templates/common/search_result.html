@@ -1,0 +1,188 @@
+
+
+
+{% extends "base.html" %}
+{% load static %}
+
+    {% block title %} Search Result for {{search_results.query}} {% endblock %}
+
+
+    {% block content %}
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container" style="padding: 40px;">
+          <h5 class="jumbotron-heading">Search Results for <span style="font-style: italic; font-weight: 600;"> {{search_results.query}} </span></h5> 
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          
+
+          {% if search_results.hotels %}
+  
+          <h3>Hotel Reservation</h3>
+          <div class="row">
+            {% for hotel in search_results.hotels %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+              <img class="card-img-top img-fluid fixed-img" src="{{ hotel.cover_image.url }}" alt="Card image cap">
+                <div class="card-body">
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text">Hotel: <span style="font-weight: 600;"> {{hotel.name}}</span> 
+                    <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text">City: <span style="font-weight: 600;"> {{hotel.city.name}}</span> 
+
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Ratinge: </span> 
+                     <span >{{hotel.rating}}</span>
+                  </p>
+
+                {% comment %} <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Check Out Date:</span> 
+                     <span >Seats: {{reservation.check_out}}</span>
+                  </p> {% endcomment %}
+
+                {% comment %} <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Duration: </span> 
+                     <span >{{reservation.duration}} days</span>
+                  </p>
+                  {% if reservation.special_requests %}
+                    <p class="card-text">{{reservation.special_requests|truncatechars:100}}</p>
+                    {% endif %} {% endcomment %}
+                  <br>
+                  <div class="d-flex" style="display: flex; justify-content: right; align-items: center;">
+                       <a class="btn btn-primary" aria-disabled="true" href="{% url 'hotels:hotel_detail' hotel.pk %}">View</a>
+                      {% comment %} <p class="card-text" >Status: {% if reservation.is_active %} 
+                        <i class="bi bi-patch-check-fill" style="color: green; font-size: 20px;"></i> {% else %} <i class="bi bi-patch-check-fill" style="color: red; font-size: 20px;"></i> {% endif %}
+                      </p> {% endcomment %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+ 
+          </div>
+          {% endif %}
+          
+
+          {% if search_results.restaurants %}
+
+            <h3>Restaurants</h3>
+          <div class="row">
+            {% for restaurant in search_results.restaurants %}
+            
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+              <img class="card-img-top img-fluid fixed-img" src="{{ restaurant.cover_image.url }}" alt="Card image cap">
+                <div class="card-body">
+                  {% comment %} <p class="card-text">{{reservation.notes|truncatechars:100}}</p> {% endcomment %}
+                  <br>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text">Restaurant: <span style="font-weight: 600;"> {{restaurant.name}}</span> 
+                  <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Rating:</span> 
+                     <span style="padding-left: 7px;">{{restaurant.rating}}</span>
+                  </p>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Address: </span> 
+                     <span >{{restaurant.address}}</span>
+                  </p>
+                  {% comment %} <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Status: </span> 
+                     <span >{{reservation.is_active}}</span>
+                  </p> {% endcomment %}
+                     {% comment %} <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text" >Status: {% if reservation.is_active %} 
+                        <i class="bi bi-patch-check-fill" style="color: green; font-size: 20px;"></i> {% else %} <i class="bi bi-patch-check-fill" style="color: red; font-size: 20px;"></i> {% endif %}
+                      </p> {% endcomment %}
+                  <div class="d-flex " style="display: flex; align-items: center; justify-content: right;">
+                    <a class="btn btn-primary" aria-disabled="true" href="{% url 'restaurants:restaurant_detail' restaurant.pk %}">View</a>
+
+                    {% comment %} <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div> {% endcomment %}
+                    {% comment %} <small class="text-muted">Guests: {{reservation.guests}}</small> {% endcomment %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+ 
+          </div>
+
+          {% endif %}
+          
+          {% if search_results.toursites %}
+        <h3>Tours</h3>
+         <div class="row">
+            {% for toursite in search_results.toursites %}
+              
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top img-fluid fixed-img" src="{{ toursite.image1.url }}" alt="Card image cap">
+                <div class="card-body">
+                  <p class="card-text">{{toursite.notes|truncatechars:100}}</p>
+                  <br>
+                  <p  style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text">Tour: <span style="font-weight: 600;"> {{toursite.name}}</span> 
+                  </p>
+                  <p  style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text">Rating: <span style="font-weight: 600;"> {{toursite.rating}}</span> 
+                  </p>
+                  {% comment %} <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Start Date: {{book_tour.start_datetime}}</span> 
+                     <span style="padding-left: 7px;">End Date: {{book_tour.end_datetime}}</span>
+                  </p> {% endcomment %}
+                  {% comment %} <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>City:  {{book_tour.site.city.name}}</span> 
+                     <span >Region: {{book_tour.ste.city.state.name}}</span>
+                  </p> {% endcomment %}
+                  <div class="d-flex" style="display: flex; justify-content: right; align-items: center;">
+                       <a class="btn btn-primary" aria-disabled="true" href="{% url 'tours:tour_detail' toursite.pk %}">View</a>
+                      
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+          {% endif %}
+
+          {% comment %} Festivals {% endcomment %}
+           
+          {% if search_results.festivals %}
+        <h3>Festivals</h3>
+         <div class="row">
+            {% for festival in search_results.festivals %}
+              
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top img-fluid fixed-img" src="{{ festival.cover_image.url }}" alt="Card image cap">
+                <div class="card-body">
+                  {% comment %} <p class="card-text">{{toursite.notes|truncatechars:100}}</p> {% endcomment %}
+                  <br>
+                  <p  style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text">Festival: <span style="font-weight: 600;"> {{festival.name}}</span> 
+                  </p>
+                  <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Month: </span> 
+                     <span style="padding-left: 7px;">{{festival.month_of_celebration}}</span>
+                  </p>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>City: </span> 
+                     <span >
+                      {{festival.city.name}}
+                       </span>
+                  </p>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>Region: </span> 
+                     <span >
+                      {{festival.city.state.name}}
+                       </span>
+                  </p>
+                  <div class="d-flex" style="display: flex; justify-content: right; align-items: center;">
+                       <a class="btn btn-primary" aria-disabled="true" href="{% url 'festivals:detail_festival' festival.pk %}">View</a>
+                      
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+          {% endif %}
+      </div>
+
+    </main>
+
+
+    {% endblock %}
+

@@ -10,8 +10,10 @@
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="{% url 'tours:home' %}">Home</a></span> <span>Hotel</span></p>
-            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Hotels</h1>
+            
+			{% comment %} <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="{% url 'tours:home' %}">Home</a></span> <span>Hotel</span></p> {% endcomment %}
+
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">{{object.name}}</h1>
           </div>
         </div>
       </div>
@@ -33,7 +35,7 @@
 		                <div class="select-wrap one-third">
 	                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
 	                    <select name="" id="" class="form-control" placeholder="Keyword search">
-	                     <option value="">Select Location</option>
+	                     {% comment %} <option value="">Select Location</option> {% endcomment %}
 							{% for state in states %}
 							<option value="{{state.id}}">{{state.name}}</option>
 	                      {% endfor %}

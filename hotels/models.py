@@ -22,7 +22,7 @@ class Hotel(models.Model):
     address = models.TextField()
     rating = models.DecimalField(decimal_places=2, max_digits=3)
     notes = models.TextField()
-    short_description = models.CharField(default="This is a hotel")
+    # short_description = models.CharField(default="This is a hotel")
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
 
@@ -51,7 +51,7 @@ class HotelRoom(models.Model):
         max_length=20, choices=ROOM_TYPE_CHOICES, default="single"
     )
     is_available = models.BooleanField(default=True)
-    image = models.ImageField(upload_to="hotel_rooms/", blank=True, null=True)
+    image = models.ImageField(upload_to="hotel_rooms/")
     featured_images = models.ManyToManyField(
         Media, blank=True, related_name="hotel_rooms"
     )
@@ -88,7 +88,7 @@ class HotelReservation(models.Model):
         unique_together = ["room", "check_in", "check_out"]
 
     def __str__(self):
-        return f"{self.user.username} - {self.room.name} ({self.check_in} to {self.check_out})"
+        return f"{self.user} - {self.room.name} ({self.check_in} to {self.check_out})"
 
     def duration(self):
         return (self.check_out - self.check_in).days
@@ -96,3 +96,29 @@ class HotelReservation(models.Model):
     def is_active(self):
         today = timezone.now().date()
         return self.check_in <= today <= self.check_out
+
+    from decimal import Decimal
+
+    @staticmethod
+    def calculate_reservation_amount(reservation):
+        """
+        Calculate the amount to be paid for a hotel reservation.
+
+        Arguments:
+            reservation (HotelReservation): The reservation instance.
+
+        Returns:
+            Decimal: Total amount for the reservation.
+        """
+        nights = reservation.duration()
+
+        # Ensure at least 1 night (guard against zero or negative durations)
+        if nights <= 0:
+            nights = 1
+
+        # Get the room fee (already a Decimal field)
+        fee_per_night = reservation.room.fee
+
+        total = fee_per_night * nights
+
+        return total

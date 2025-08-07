@@ -43,7 +43,7 @@ class Festival(models.Model):
     category = models.CharField(
         max_length=20, choices=CATEGORY_CHOICES, default="cultural"
     )
-    cover_image = models.ImageField(upload_to="festival_covers/", null=True, blank=True)
+    cover_image = models.ImageField(upload_to="festival_covers/")
     gallery = models.ManyToManyField(Media, blank=True, related_name="festivals")
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)

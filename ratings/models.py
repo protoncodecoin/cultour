@@ -10,7 +10,6 @@ class Rating(models.Model):
     user = models.ForeignKey(Tourist, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField()  # 1-5 scale
     comment = models.TextField(blank=True, null=True)
-
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")

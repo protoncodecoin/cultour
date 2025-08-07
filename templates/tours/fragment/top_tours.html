@@ -12,7 +12,7 @@
                 {% for tour in top_tours %}
     			<div class="col-sm col-md-6 col-lg ftco-animate">
     				<div class="destination">
-    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{tour.image1.url}});">
+    					<a href="{% url 'tours:tour_detail' tour.pk %}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{tour.image1.url}});">
     						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
@@ -20,7 +20,7 @@
     					<div class="text p-3">
     						<div class="d-flex">
     							<div class="one">
-		    						<h3><a href="#">{{tour.name}}, {{tour.city}}</a></h3>
+		    						<h3><a href="{% url 'tours:tour_detail' tour.pk %}">{{tour.name}}, {{tour.city}}</a></h3>
 		    						<p class="rate">
 		    							<i class="icon-star"></i>
 		    							<i class="icon-star"></i>
@@ -30,15 +30,15 @@
 		    							<span>{{tour.rating}} Rating</span>
 		    						</p>
 	    						</div>
-	    						<div class="two">
-	    							<span class="price">$200</span>
-    							</div>
+	    						{% comment %} <div class="two">
+	    							<span class="price">₵{{tour.fee}}</span>
+    							</div> {% endcomment %}
     						</div>
     						<p>{{tour.description | truncatechars:50}}</p>
     						{% comment %} <p class="days"><span>2 days 3 nights</span></p> {% endcomment %}
     						<hr>
     						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span> 
+    							<span><i class="icon-map-o"></i>{{tour.city}}, {{tour.city.state}}</span> 
     							<span class="ml-auto"><a href="{% url 'tours:tour_detail' tour.id %}">Discover</a></span>
     						</p>
     					</div>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Tour, TourReservation, TourSite, TourSiteOwner
+from .models import Tour, TourReservation, TourSite
 
 
 @admin.register(Tour)
@@ -16,11 +16,11 @@ class TourSiteAdmin(admin.ModelAdmin):
     list_display = [
         "name",
         "city",
-        "rating",
+        "average_rating",
         "createdon",
         "updatedon",
     ]
-    list_filter = ["name", "city", "rating", "createdon", "updatedon"]
+    list_filter = ["name", "city", "createdon", "updatedon"]
     search_fields = ["name", "city"]
 
 

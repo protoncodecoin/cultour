@@ -1,9 +1,9 @@
 # ratings/api/urls.py
 from django.urls import path
-from .views import SubmitRatingView
+from .views import RatingCreateAPIView
 
 app_name = "ratings"
 
 urlpatterns = [
-    path("submit-rating/", SubmitRatingView.as_view(), name="submit-rating"),
+    path("create-rating/", RatingCreateAPIView.as_view(), name="create-rating"),
 ]

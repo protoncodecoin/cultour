@@ -14,7 +14,7 @@ from django.utils.encoding import force_bytes, force_str
 
 from hotels.models import HotelReservation
 from restaurants.models import TableReservation
-from tours.models import Tour, TourSite
+from tours.models import Tour, TourReservation, TourSite
 from users.models import Tourist
 
 from .token import generate_token
@@ -165,7 +165,9 @@ class DashBoardView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["booked_toursites"] = Tour.objects.all()
+        context["booked_toursites"] = TourReservation.objects.filter(
+            tourist=self.object
+        )
         context["table_reservations"] = TableReservation.objects.filter(
             user=self.object
         )

@@ -63,17 +63,17 @@ class TableReservationSerializer(ModelSerializer):
 
         return attrs
 
-    def create(self, validated_data):
-        reservation_data = validated_data
-        user = self.context["request"].user
-        user_obj = User.objects.filter(pk=user.pk).first()
-        tourist = Tourist.objects.filter(user=user_obj).first()
+    # def create(self, validated_data):
+    #     reservation_data = validated_data
+    #     user = self.context["request"].user
+    #     user_obj = User.objects.filter(pk=user.pk).first()
+    #     tourist = Tourist.objects.filter(user=user_obj).first()
 
-        print(user_obj, tourist)
-        # reservation_table = RestaurantTable.objects.get(id=validated_data["table"])
-        # validated_data["table"] = reservation_table.pk
-        # validated_data["user"] = tourist
-        print(validated_data)
-        table_reservation = TableReservation.objects.create(**reservation_data)
-        table_reservation.save()
-        return table_reservation
+    #     print(user_obj, tourist)
+    #     # reservation_table = RestaurantTable.objects.get(id=validated_data["table"])
+    #     # validated_data["table"] = reservation_table.pk
+    #     # validated_data["user"] = tourist
+    #     print(validated_data)
+    #     table_reservation = TableReservation.objects.create(**reservation_data)
+    #     table_reservation.save()
+    #     return table_reservation

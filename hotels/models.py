@@ -3,10 +3,15 @@ from gallery.models import Media
 from places.models import City
 from users.models import HotelOwner, Tourist
 from django.utils import timezone
+from django.contrib.contenttypes.fields import GenericRelation
+from ratings.models import Rating
+from django.db.models import Avg
+
+from ratings.mixins import RateableModel
 
 
 # Create your models here.
-class Hotel(models.Model):
+class Hotel(RateableModel):
     owner = models.ForeignKey(HotelOwner, on_delete=models.CASCADE)
     cover_image = models.ImageField(
         upload_to="hotel/images",
@@ -20,17 +25,21 @@ class Hotel(models.Model):
     name = models.CharField(max_length=50)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     address = models.TextField()
-    rating = models.DecimalField(decimal_places=2, max_digits=3)
     notes = models.TextField()
-    # short_description = models.CharField(default="This is a hotel")
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
 
+    def calculate_average_rating(self):
+        return self.ratings.aggregate(avg=Avg("rating"))["avg"]
 
-class HotelRoom(models.Model):
+    # def average_rating(self, obj):
+    #     return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
+
+
+class HotelRoom(RateableModel):
 
     ROOM_TYPE_CHOICES = [
         ("single", "Single"),
@@ -42,7 +51,6 @@ class HotelRoom(models.Model):
     name = models.CharField(max_length=50)
     address = models.TextField()
     fee = models.DecimalField(decimal_places=2, max_digits=50)
-    rating = models.DecimalField(decimal_places=2, max_digits=3)
     notes = models.TextField()
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
@@ -58,6 +66,9 @@ class HotelRoom(models.Model):
 
     def __str__(self):
         return self.name
+
+    def average_rating(self, obj):
+        return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
 
 
 class HotelReservation(models.Model):

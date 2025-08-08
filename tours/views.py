@@ -112,3 +112,7 @@ def tour_search(request):
     return render(
         request, "common/search_result.html", context={"search_results": result_dict}
     )
+
+
+# def gallery(request):
+#     return render(request, "common/gallery.html")

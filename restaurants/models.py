@@ -2,22 +2,29 @@ from django.utils import timezone
 from django.db import models
 from places.models import City
 from users.models import RestaurantOwner, Tourist
+from django.db.models import Avg
+
+
+from ratings.mixins import RateableModel
 
 
 # Create your models here.
-class Restaurant(models.Model):
+class Restaurant(RateableModel):
     owner = models.ForeignKey(RestaurantOwner, on_delete=models.CASCADE)
     cover_image = models.ImageField(upload_to="images/restaurants/")
     name = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
-    rating = models.DecimalField(decimal_places=2, max_digits=3)
+    # rating = models.DecimalField(decimal_places=2, max_digits=3)
     notes = models.TextField()
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def average_rating(self, obj):
+        return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
 
 
 class RestaurantFood(models.Model):
@@ -54,6 +61,7 @@ class RestaurantTable(models.Model):
     table_number = models.CharField(max_length=10, unique=True)
     seats = models.PositiveIntegerField()
     is_available = models.BooleanField(default=True)
+    fee = models.DecimalField(decimal_places=2, max_digits=50)
 
     def __str__(self):
         return f"Table {self.table_number} - {self.restaurant.name}"

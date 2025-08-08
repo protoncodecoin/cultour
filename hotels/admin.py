@@ -11,19 +11,24 @@ class HotelAdmin(admin.ModelAdmin):
         "name",
         "city",
         "address",
-        "rating",
+        # "average_rating",
         "createdon",
         "updatedon",
     ]
-    list_filter = ["city", "rating", "createdon", "updatedon"]
+    list_filter = [
+        "city",
+        # "ratings",
+        "createdon",
+        "updatedon",
+    ]
     search_fields = ["notes", "address"]
     ordering = ["createdon", "updatedon"]
 
 
 @admin.register(HotelRoom)
 class HotelRoomAdmin(admin.ModelAdmin):
-    list_display = ["hotel", "name", "fee", "rating", "createdon", "updatedon"]
-    list_filter = ["rating", "createdon", "updatedon"]
+    list_display = ["hotel", "name", "fee", "average_rating", "createdon", "updatedon"]
+    list_filter = ["createdon", "updatedon"]
     ordering = ["createdon", "updatedon"]
     search_fields = ["address", "name", "fee", "notes"]
 

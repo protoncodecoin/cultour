@@ -18,7 +18,7 @@ class HotelReservationAPIView(APIView):
         )
         if serializer.is_valid():
             amount = serializer.validated_data.pop("amount")
-            reservation = serializer.save()
+            reservation = serializer.save(status="completed")
             # Create a related payment instance
             amount = HotelReservation.calculate_reservation_amount(reservation)
             content_type = Payment.get_content_type("HotelReservation")

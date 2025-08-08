@@ -7,7 +7,7 @@ app_name = "api"
 urlpatterns = [
     path(
         "create-reservation/",
-        views.CreateTableReservation.as_view(),
+        views.CreateHotelReservation.as_view(),
         name="create_reservation",
     ),
 ]

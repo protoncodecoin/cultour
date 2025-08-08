@@ -9,6 +9,7 @@ let modalElement = document.querySelector(".modal"); // ✅ define modal element
 let reservationTableEl = document.querySelector(".reservation__tables");
 let secondModal = document.querySelector("#hiddenBookBtn");
 
+let {email } = userEmail;
 
 let csrftoken = getCookie("csrftoken");
 
@@ -16,6 +17,7 @@ let finalTableId = null;
 
 reservationTableEl.addEventListener("click", async function(e){
     const target = e.target
+    console.log(target)
     console.log(target.classList.contains("tableID"))
     if (target.classList.contains("tableID")) {
         
@@ -59,7 +61,7 @@ async function createTableReservation(tableId) {
         }),
     }
 
-    const URL = `http://${BASEURL}/api/create-reservation/`;
+    const URL = `/api/create-reservation/`;
 
 
     try {
@@ -70,7 +72,9 @@ async function createTableReservation(tableId) {
         }
 
         const respData = await response.json();
-        console.log(respData);
+        console.log(respData, email, "============ response");
+
+        payWithPaystack(respData["ref"], respData["amount"], respData["object_id"], respData["content_type"])
 
         // ✅ Close the modal the Bootstrap 5 way
         document.querySelector(".first-close-btn").click();
@@ -95,3 +99,78 @@ saveReservationBtn.addEventListener("click", function(e){
 
     createTableReservation(finalTableId);
 })
+
+console.log("worked !!!!")
+
+
+function payWithPaystack(ref, amount, table, content_type) {
+    let currency = "GHS";
+    let plan = "";
+
+    console.log("======== called pay ===============", ref, amount, table, content_type,email)
+
+    let obj = {
+        key: "pk_test_17f45c77fbf0880f64302e5ac67425741af647fa",
+        amount,
+        ref,
+        email,
+        callback: function(response) {
+            // call verify function
+            verifyPayment(ref, content_type, table)
+        },
+    };
+
+    if (Boolean(currency)) {
+        obj.currency = currency;
+    }else {
+        console.log("======= currency ============");
+    }
+
+    if (Boolean(plan)) {
+        obj.plan - plan;
+        console.log("======= plan ============");
+
+    }
+
+    var handler = PaystackPop.setup(obj);
+    handler.openIframe();
+    
+}
+
+
+async function verifyPayment(ref, content_type, obj_id) {
+
+    console.log("===== called verify ===========");
+
+    const options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+        },
+        body: JSON.stringify({
+            ref,
+            content_type,
+            object_id: obj_id,
+        }),
+    };
+
+    const URL = `/api/payment/verify/`;
+
+    try {
+        
+        const response = await fetch(URL, options);
+
+        if (!response.ok) {
+            console.log(response.statusText);
+            throw new Error("Failed to verify transaction")
+        }
+
+        const jsonData = await response.json();
+
+        return jsonData;
+    } catch (error) {
+        console.log(error)
+    }
+
+}

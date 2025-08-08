@@ -43,7 +43,7 @@
 	<div class="container">
 		<div class="row justify-content-md-center">
 			<div class="col-md-auto">
-			<h2 class="festival-name">{{toursite.name}} <span class="rating"> <i class="bi bi-star-fill rating-star"></i></i> {{object.rating}}</span></h2>
+			<h2 class="festival-name">{{toursite.name}} <span class="rating"> <i class="bi bi-star-fill rating-star"></i></i> {{toursite.average_rating}}</span></h2>
 			</div>
 		</div>
 
@@ -54,7 +54,7 @@
 		</div>
 
 		<div class="row justify-content-md-center other-info">
-			<div class="col-md-auto other-info-sub-container">
+			{% comment %} <div class="col-md-auto other-info-sub-container">
 				Greater Accra
 			</div>
 			<div class="col-md-auto other-info-sub-container">
@@ -63,7 +63,7 @@
 			<div class="col-md-auto other-info-sub-container">
 				May Every Year
 			</div>
-  		</div>
+  		</div> {% endcomment %}
 
 		<div class="row justify-content-md-center">
 			<div class="col-14">

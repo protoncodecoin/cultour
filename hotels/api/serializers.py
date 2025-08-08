@@ -76,20 +76,3 @@ class HotelReservationSerializer(serializers.ModelSerializer):
         data["user"] = tourist
 
         return data
-
-    # def create(self, validated_data):
-    #     amount = validated_data.pop("amount")
-
-    #     hotelReservation = HotelReservation.objects.create(**validated_data)
-    #     hotelReservation.save()
-
-    #     # create payment
-    #     # create payment
-    #     content_type = Payment.get_content_type("HotelReservation")
-    #     pk = Payment.objects.create(
-    #         user=validated_data["user"],
-    #         amount=amount,
-    #         content_type=content_type,
-    #         object_id=hotelReservation.pk,
-    #     )
-    #     return pk

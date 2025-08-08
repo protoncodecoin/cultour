@@ -14,7 +14,6 @@ from tours.models import TourReservation
 class VerifyPayment(APIView):
 
     def post(self, request):
-        print(request.data)
 
         serializer = VerifyPaymentSerializer(data=request.data)
 
@@ -30,7 +29,6 @@ class VerifyPayment(APIView):
                     hotel_reservation_obj = HotelReservation.objects.get(
                         pk=payment_data["object_id"]
                     )
-                    print("hotel reservation", hotel_reservation_obj)
                     hotel_reservation_obj.status = "completed"
                     hotel_reservation_obj.save()
                     print("update successful`")
@@ -63,8 +61,5 @@ class VerifyPayment(APIView):
                         data={"message": "table has been successfully reserved"},
                         status=status.HTTP_201_CREATED,
                     )
-
-            print(serializer.errors)
-            # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

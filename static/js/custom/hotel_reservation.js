@@ -29,7 +29,7 @@ initiatePaymentBtn.addEventListener("click", async function(e){
         }),
     };
 
-    const URL = `http://${BASEURL}/api/hotels/reservations/`;
+    const URL = `/api/hotels/reservations/`;
 
     try {
         const response = await fetch(URL, options);

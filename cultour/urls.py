@@ -30,6 +30,7 @@ urlpatterns = [
     path("api/tours/", include("tours.api.urls", namespace="tours_api")),
     path("hotels/", include("hotels.urls", namespace="hotels")),
     path("restaurants/", include("restaurants.urls", namespace="restaurants")),
+    path("gallery/", include("gallery.urls", namespace="gallery")),
     path("festivals/", include("festivals.urls", namespace="festivals")),
     path("auth/", include("users.urls", namespace="users")),
 ]

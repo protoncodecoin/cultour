@@ -1,7 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
-from django.conf import settings
 
 from users.models import Tourist
 
@@ -21,4 +20,19 @@ class Rating(models.Model):
             "user",
             "content_type",
             "object_id",
-        )  # Prevent duplicate ratings
+        )
+
+    @classmethod
+    def create_for(cls, *, user, obj, rating, comment=None):
+
+        if not hasattr(obj, "ratings"):
+            raise TypeError("This object cannot be rated. Add the RateableModel mixin.")
+
+        content_type = ContentType.objects.get_for_model(obj.__class__)
+        return cls.objects.create(
+            user=user,
+            rating=rating,
+            comment=comment,
+            content_type=content_type,
+            object_id=obj.id,
+        )

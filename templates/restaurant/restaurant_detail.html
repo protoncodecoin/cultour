@@ -236,7 +236,14 @@
 
 {% block include_js %}
 
+	<script>
+		const userEmail = {
+			email: "{{user.email}}"
+		}
+	</script>
+
 	{% block domready %}
+	<script src="https://js.paystack.co/v1/inline.js"></script>
 		<script src="{% static 'js/custom/reservation.js' %}" ></script>
 	{% endblock %}
 	

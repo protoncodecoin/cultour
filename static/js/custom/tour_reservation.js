@@ -45,7 +45,7 @@ paymentBtn.addEventListener("click", async function(e) {
         }),
     };
 
-    const URL = `http://${BASEURL}/api/tours/reservations/`;
+    const URL = `/api/tours/reservations/`;
 
     try {
         const response = await fetch(URL, options);
@@ -133,7 +133,7 @@ async function verifyPayment(ref, content_type, obj_id) {
         }),
     };
 
-    const URL = `http://${BASEURL}/api/payment/verify/`;
+    const URL = `/api/payment/verify/`;
 
     try {
         

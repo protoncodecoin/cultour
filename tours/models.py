@@ -3,17 +3,20 @@ from django.db import models
 from gallery.models import Media
 from places.models import City
 from users.models import Tourist, TourSiteOwner
+from ratings.mixins import RateableModel
+
+from django.db.models import Avg
 
 
 # Create your models here.
-class TourSite(models.Model):
+class TourSite(RateableModel):
     owner = models.ForeignKey(TourSiteOwner, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     image1 = models.ImageField(upload_to="images", blank=True)
     image2 = models.ImageField(upload_to="images", blank=True)
     description = models.TextField()
-    rating = models.DecimalField(decimal_places=2, max_digits=3)
+    # rating = models.DecimalField(decimal_places=2, max_digits=3)
     featured_images = models.ManyToManyField(
         Media, blank=True, related_name="featured_image"
     )
@@ -23,6 +26,12 @@ class TourSite(models.Model):
 
     def __str__(self):
         return self.name
+
+    def average_rating(self, obj):
+        return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
+
+    def calculate_average_rating(self):
+        return self.ratings.aggregate(avg=Avg("rating"))["avg"]
 
 
 class Tour(models.Model):

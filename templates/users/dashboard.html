@@ -56,7 +56,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-model-name="hotel" data-object-id="{{ reservation.pk }}" data-related-model="hotelreservation" data-target="#exampleModalCenter">Rate!</button>                   
                     </div>
                       <p class="card-text" >Status: {% if reservation.is_active %} 
                         <i class="bi bi-patch-check-fill" style="color: green; font-size: 20px;"></i> {% else %} <i class="bi bi-patch-check-fill" style="color: red; font-size: 20px;"></i> {% endif %}
@@ -99,7 +99,8 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-model-name="restaurant" data-object-id="{{reservation.pk}}" data-related-model="tablereservation" data-target="#exampleModalCenter">Rate!</button>
+                     
                     </div>
                     <small class="text-muted">Guests: {{reservation.guests}}</small>
                   </div>
@@ -113,28 +114,27 @@
           {% endif %}
           
           {% if booked_toursites %}
-        <h3>Favorited Tourist Sites</h3>
+        <h3>Booked Tourist Sites</h3>
          <div class="row">
             {% for book_tour in booked_toursites %}
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top img-fluid fixed-img" src="{{ book_tour.site.image1 }}" alt="Card image cap">
+                <img class="card-img-top img-fluid fixed-img" src="{{ book_tour.tour.site.image1.url }}" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text">{{book_tour.notes|truncatechars:100}}</p>
+                  <p class="card-text">{{book_tour.tour.notes|truncatechars:100}}</p>
                   <br>
-                  <p  class="card-text">Tour: <span style="font-weight: 600;"> {{book_tour.site.name}}</span> 
-                  <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Start Date: {{book_tour.start_datetime}}</span> 
-                     <span style="padding-left: 7px;">End Date: {{book_tour.end_datetime}}</span>
+                  <p  class="card-text">Tour: <span style="font-weight: 600;"> {{book_tour.tour.site.name}}</span> 
+                  <p style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;" class="card-text"><span>Start Date: {{book_tour.tour.start_datetime}}</span> 
+                     <span style="padding-left: 7px;">End Date: {{book_tour.tour.end_datetime}}</span>
                   </p>
-                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>City:  {{book_tour.site.city.name}}</span> 
-                     <span >Region: {{book_tour.ste.city.state.name}}</span>
+                  <p style="font-weight: 500; display: flex; align-items: center; justify-content: space-between;" class="card-text"><span>City:  {{book_tour.tour.site.city.name}}</span> 
+                     <span >Region: {{book_tour.tour.site.city.state.name}}</span>
                   </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">Fee: {{book_tour.fee}}</small>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" >View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-model-name="toursite" data-object-id="{{book_tour.pk}}" data-related-model="tourreservation" data-target="#exampleModalCenter">Rate!</button>                    </div>
+                    <small class="text-muted">Fee: {{book_tour.tour.fee}}</small>
                   </div>
                 </div>
               </div>
@@ -145,7 +145,61 @@
           {% endif %}
       </div>
 
-    </main>
+      <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Rate</h5>
+        <button type="button" class="close btn-close first-close-btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="rating-container text-center">
+            <div class="rating-emoji">
+                😊
+            </div>
+            <h3 class="rating-title">How was your experience?</h3>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5" class="fas fa-star"></label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" class="fas fa-star"></label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" class="fas fa-star"></label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" class="fas fa-star"></label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" class="fas fa-star"></label>
+            </div>
+            <div class="rating-feedback">
+                <textarea class="form-control" rows="3" placeholder="Tell us about your experience (optional)"></textarea>
+            </div>
+            <button type="submit" class="submit-rating">Submit Rating</button>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success initiate__btn" >submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-    {% endblock %}
+</main>
+
+
+{% endblock %}
+
+{% block include_js %}
+ 
+  {% block domready %}
+     <script src="{% static 'js/custom/ratings.js' %}"></script>
+  {% endblock %}
+
+{% endblock %}

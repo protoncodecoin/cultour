@@ -11,4 +11,5 @@ urlpatterns = [
     path("tours/", views.TourListView.as_view(), name="tours"),
     path("search/", views.tour_search, name="search"),
     path("tours/<int:pk>/", views.TourDetailView.as_view(), name="tour_detail"),
+    # path("gallery/", views.gallery, name="gallery"),
 ]

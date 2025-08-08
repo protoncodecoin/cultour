@@ -11,8 +11,19 @@ from restaurants.models import (
 # Register your models here.
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ["owner", "name", "city", "rating", "createdon", "updatedon"]
-    list_filter = ["owner", "createdon", "updatedon", "rating"]
+    list_display = [
+        "owner",
+        "name",
+        "city",
+        "average_rating",
+        "createdon",
+        "updatedon",
+    ]
+    list_filter = [
+        "owner",
+        "createdon",
+        "updatedon",
+    ]
     search_fields = ["notes", "city", "address"]
 
 
@@ -30,7 +41,7 @@ class RestaurantFoodAdmin(admin.ModelAdmin):
 
 @admin.register(RestaurantTable)
 class RestaurantTableAdmin(admin.ModelAdmin):
-    list_display = ["restaurant", "table_number", "seats", "is_available"]
+    list_display = ["restaurant", "table_number", "seats", "fee", "is_available"]
     list_filter = ["table_number", "seats", "is_available"]
     search_fields = ["table_number", "seats"]
 

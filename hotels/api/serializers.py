@@ -74,5 +74,6 @@ class HotelReservationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("User Profile not found")
 
         data["user"] = tourist
+        data["status"] = "completed"
 
         return data

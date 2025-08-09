@@ -45,6 +45,7 @@ class Festival(models.Model):
     )
     cover_image = models.ImageField(upload_to="festival_covers/")
     gallery = models.ManyToManyField(Media, blank=True, related_name="festivals")
+    # notes = models.TextField()
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     is_approved = models.BooleanField(default=False)

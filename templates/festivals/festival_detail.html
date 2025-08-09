@@ -17,7 +17,7 @@
       </div>
     </div> {% endcomment %}
 
-	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	<div id="carouselExampleIndicators" class="carousel slide cs-padding-top" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -67,11 +67,9 @@
 
 		<div class="row justify-content-md-center">
 			<div class="col-14">
-				<h3 class="about-title">About Asafotufiam</h3>
+				<h3 class="about-title">About {{object.name}}</h3>
 			<p style="font-size: 18px;" class="tour-detail">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget interdum sem. Nunc feugiat ante tincidunt, placerat sapien quis, pharetra ex. Duis vel tempus magna. Curabitur id luctus odio, condimentum egestas tortor. Sed nec posuere ligula, in varius tellus. Aliquam non condimentum purus. Proin bibendum nec ante at hendrerit. Etiam mollis orci turpis, eget congue lacus ornare non. Cras fringilla purus eu efficitur rhoncus. Morbi eget quam sem. Ut luctus ex purus, sed tempor augue euismod sit amet. Quisque ut metus mi. Pellentesque vitae mauris sit amet elit volutpat convallis a id nisi.
-
-				Nullam et varius neque, non volutpat sem. Nulla consequat tincidunt erat, eget blandit arcu egestas ac. Nam porttitor condimentum semper. Proin sed rhoncus dolor. Nulla facilisi. Aliquam eget venenatis eros. Curabitur finibus turpis sit amet odio condimentum lacinia. Sed eu ornare felis. Aenean eget ligula quam. Duis egestas justo in dictum fringilla. Phasellus sagittis ipsum ut metus iaculis ornare. Pellentesque mattis a nisl ut finibus.
+				{{object.history}}
 			</p>
 			</div>
 		</div>

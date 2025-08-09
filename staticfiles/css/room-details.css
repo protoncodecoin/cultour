@@ -1,0 +1,37 @@
+.custom-container {
+    padding-top: 25px;
+    background-color: gainsboro;
+}
+
+.cs-padding {
+    padding-top: 20px;
+}
+
+.cs-padding {
+    padding-bottom: 20px;
+}
+
+.cs-card {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.book-btn-container {
+    margin-left: 70%;
+    padding-bottom: 30px;
+    padding-right: 30px;
+}
+
+@media (min-width: 576px) { 
+    .custom-container {
+    padding-top: 25px;
+}
+ }
+
+@media (min-width: 992px) { 
+        .custom-container {
+    padding-top: 80px;
+}  
+ }

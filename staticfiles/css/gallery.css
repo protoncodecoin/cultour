@@ -1,0 +1,17 @@
+/* CSS used here will be applied after bootstrap.css */
+.ekko-lightbox-nav-overlay a {
+    color: goldenrod;
+}
+.gallery-title {
+    text-align: center;
+	font-weight: 500;
+	border-bottom: 1px dotted orange;
+	margin-top: 1em;
+}
+
+ .gallery-image {
+    width: 100%;
+    height: 200px; /* Set your desired fixed height */
+    object-fit: cover;
+    border-radius: 8px;
+  }

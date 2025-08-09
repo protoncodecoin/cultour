@@ -152,6 +152,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 USE_S3 = os.environ.get("USE_S3") == "TRUE"
+
 if USE_S3:
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
@@ -169,7 +170,7 @@ if USE_S3:
     DEFAULT_FILE_STORAGE = "cultour.storage_backends.PublicMediaStorage"
 
     # ✅ This avoids the ImproperlyConfigured error
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles-temp")
+    # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles-temp")
 else:
     STATIC_URL = "/static/"
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")

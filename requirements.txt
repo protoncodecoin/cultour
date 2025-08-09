@@ -9,13 +9,15 @@ django-countries==7.6.1
 django-environ==0.11.2
 django-storages==1.14.6
 djangorestframework==3.16.0
+gunicorn==23.0.0
 idna==3.10
 jmespath==1.0.1
+packaging==25.0
 pillow==11.3.0
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
 python-dateutil==2.9.0.post0
-python-dotenv==1.1.1
+python-dotenv==0.21.0
 pyuca==1.2
 requests==2.32.4
 s3transfer==0.13.1
@@ -23,3 +25,5 @@ six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.14.1
 urllib3==2.5.0
+whitenoise==6.2.0
+Brotli==1.0.9

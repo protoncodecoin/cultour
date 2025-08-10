@@ -33,7 +33,7 @@ urlpatterns = [
     path("gallery/", include("gallery.urls", namespace="gallery")),
     path("festivals/", include("festivals.urls", namespace="festivals")),
     path("auth/", include("users.urls", namespace="users")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 if settings.DEBUG:

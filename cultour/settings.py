@@ -62,7 +62,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    # "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -150,46 +150,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
+STATIC_URL = "/static/"
 
-USE_S3 = os.environ.get("USE_S3") == "TRUE"
-
-if USE_S3:
-    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-    AWS_DEFAULT_ACL = None
-    AWS_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-
-    STATIC_LOCATION = "static"
-    STATIC_URL = f"https://{AWS_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
-    STATICFILES_STORAGE = "cultour.storage_backends.StaticStorage"
-
-    PUBLIC_MEDIA_LOCATION = "media"
-    MEDIA_URL = f"https://{AWS_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-    DEFAULT_FILE_STORAGE = "cultour.storage_backends.PublicMediaStorage"
-
-    # ✅ This avoids the ImproperlyConfigured error
-    # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles-temp")
-else:
-    STATIC_URL = "/static/"
+if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# STATIC_URL = "static/"
-# STATIC_ROOT = os.path.join(BASE_DIR / "staticfiles")
-
-# # Path where static is stored
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
-]
 
 # Base url to serve media files
-# MEDIA_URL = "media/"
+MEDIA_URL = "media/"
 
 # # Path where media is stored
-# MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles/")
 
 
 # Default primary key field type

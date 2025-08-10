@@ -8,10 +8,16 @@ class Command(BaseCommand):
     help = "Creates a superuser."
 
     def handle(self, *args, **options):
-        if not User.objects.filter(username="admin").exists():
-            User.objects.create_superuser(
-                username=os.environ.get("AD_USERNAME"),
-                email=os.environ.get("AD_EMAIL"),
-                password=os.environ.get("AD_PASSWORD"),
-            )
-        print("Superuser has been created.")
+        try:
+            if not User.objects.filter(username=os.environ.get("AD_USERNAME")).exists():
+                user = User.objects.create_superuser(
+                    username=os.environ.get("AD_USERNAME"),
+                    email=os.environ.get("AD_EMAIL"),
+                    password=os.environ.get("AD_PASSWORD"),
+                )
+                user.save()
+                print("Superuser has been created!!")
+            else:
+                print("Couldn't create superuser")
+        except Exception as e:
+            print(e)

@@ -16,7 +16,13 @@ class Command(BaseCommand):
                     password=os.environ.get("AD_PASSWORD"),
                 )
                 user.save()
-                print("Superuser has been created!!")
+                print(
+                    "Superuser has been created!!",
+                    user,
+                    user.password,
+                    os.environ.get("AD_USERNAME"),
+                    os.environ.get("AD_PASSWORD"),
+                )
             else:
                 print("Couldn't create superuser")
         except Exception as e:

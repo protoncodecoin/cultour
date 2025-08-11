@@ -115,7 +115,7 @@ async function verifyPayment(ref, content_type, obj_id) {
         }),
     };
 
-    const URL = `http://${BASEURL}/api/payment/verify/`;
+    const URL = `/api/payment/verify/`;
 
     try {
         
@@ -127,6 +127,11 @@ async function verifyPayment(ref, content_type, obj_id) {
         }
 
         const jsonData = await response.json();
+
+        // open modal
+        document.querySelector(".reservation__room").click();
+
+        console.log(jsonData, "from verification");
 
         return jsonData;
     } catch (error) {

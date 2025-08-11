@@ -7,7 +7,7 @@
 
  {% block content %}
      
-    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'images/bg_5.jpg' %}');">
+    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'bg_images/detail_rest.jpg' %}');">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -114,7 +114,7 @@
     							<i class="icon-star"></i>
     							<i class="icon-star"></i>
     							<i class="icon-star-o"></i>
-    							{{hotel.rating}} Rating</span>
+    							{{hotel.average_rating}} Rating</span>
     						</p>
     						<p>{{hotel.notes}}</p>
     						{% comment %} <div class="d-md-flex mt-5 mb-5">
@@ -240,35 +240,36 @@
           			</div>
           		</div>
 				 {% endcomment %}
-          		{% comment %} <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+          		 <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
           			<h4 class="mb-5">Check Availability &amp; Booking</h4>
+					<form method="post" action="">
           			<div class="fields">
           				<div class="row">
           					<div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" class="form-control" placeholder="Name">
+				                <input type="text" class="form-control" placeholder="Name" name="name">
 				              </div>
 			              </div>
 			              <div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" class="form-control" placeholder="Email">
+				                <input type="text" class="form-control" placeholder="Email" name="email">
 				              </div>
 			              </div>
 			              <div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" id="checkin_date" class="form-control" placeholder="Date from">
+				                <input type="text" id="checkin_date" class="form-control" placeholder="Date from" name="dateto">
 				              </div>
 			              </div>
 			              <div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" id="checkin_date" class="form-control" placeholder="Date to">
+				                <input type="text" id="checkin_date" class="form-control" placeholder="Date to" name="datefrom">
 				              </div>
 				            </div>
 				            <div class="col-md-6">
 					            <div class="form-group">
 				                <div class="select-wrap one-third">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-			                    <select name="" id="" class="form-control" placeholder="Guest">
+			                    <select name="guests" id="" class="form-control" placeholder="Guest">
 			                      <option value="0">Guest</option>
 			                      <option value="1">1</option>
 			                      <option value="2">2</option>
@@ -282,7 +283,7 @@
 					            <div class="form-group">
 				                <div class="select-wrap one-third">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-			                    <select name="" id="" class="form-control" placeholder="Children">
+			                    <select name="children" id="" class="form-control" placeholder="Children">
 			                      <option value="0">Children</option>
 			                      <option value="1">1</option>
 			                      <option value="2">2</option>
@@ -299,7 +300,8 @@
 			              </div>
 		              </div>
 		            </div>
-          		</div> {% endcomment %}
+					</form>
+          		</div>
           		{% comment %} <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
           			<h4 class="mb-4">Review &amp; Ratings</h4>
           			<div class="row">

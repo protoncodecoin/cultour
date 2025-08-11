@@ -96,7 +96,6 @@ def signup(request):
         current_site = get_current_site(request)
         email_subject = "Confirm Your Email Address!"
         token = generate_token.make_token(new_user)
-        print(token)
         messages2 = render_to_string(
             "users/email_confirmation.html",
             {
@@ -186,3 +185,15 @@ def contact_us(request):
 
         # save message and send reply to the user.
     return "common/contact_us.html"
+
+
+def check_availability(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        date_from = request.POST.get("datefrom")
+        date_to = request.POST.get("date_to")
+        guests = request.POST.get("guests")
+        children = request.POST.get("children")
+
+    return "common/index.html"

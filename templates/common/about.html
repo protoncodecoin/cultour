@@ -6,14 +6,16 @@
 {% block content %}
     
     <div class="hero-wrap js-fullheight" style="background-image: url('{% static "bg_images/about.jpg" %}');">
-      <div class="overlay"></div>
+      <div class="overlay custom-overlay" style="background-color: black">
+		<div class="blur"></div>
+	  </div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
 				{% comment %} <span class="mr-2"><a href="index.html">Home</a></span> <span>About</span> {% endcomment %}
 			</p>
-            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">About Us</h1>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">About Cultour</h1>
           </div>
         </div>
       </div>

@@ -23,8 +23,10 @@ class Restaurant(RateableModel):
     def __str__(self):
         return self.name
 
-    def average_rating(self, obj):
-        return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
+    def average_rating(self):
+        avg = self.ratings.aggregate(avg=Avg("rating"))["avg"]
+
+        return avg if avg is not None else 0
 
 
 class RestaurantFood(models.Model):

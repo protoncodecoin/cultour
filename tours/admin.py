@@ -16,7 +16,7 @@ class TourSiteAdmin(admin.ModelAdmin):
     list_display = [
         "name",
         "city",
-        "average_rating",
+        # "average_rating",
         "createdon",
         "updatedon",
     ]

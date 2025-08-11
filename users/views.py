@@ -115,7 +115,7 @@ def signup(request):
         )
         # send_mail(email_subject, messages2, from_email, to_list, fail_silently=True)
         email.content_subtype = "html"  # Set content type to HTML
-        email.send(fail_silently=True)
+        email.send(fail_silently=False)
 
         messages.success(
             request,
@@ -175,3 +175,14 @@ class DashBoardView(DetailView):
             user=self.object
         )
         return context
+
+
+def contact_us(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+
+        # save message and send reply to the user.
+    return "common/contact_us.html"

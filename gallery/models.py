@@ -10,6 +10,9 @@ class Media(models.Model):
     def __str__(self):
         return self.caption or self.image.name
 
+    # class Meta:
+    #     ordering = ["-created_on"]
+
 
 class Gallery(models.Model):
     image = models.ImageField(upload_to="gallery/")
@@ -18,3 +21,6 @@ class Gallery(models.Model):
 
     # def __str__(self):
     #     return f"{self.caption or }"
+
+    class Meta:
+        ordering = ["-created_on"]

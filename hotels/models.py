@@ -35,8 +35,10 @@ class Hotel(RateableModel):
     def calculate_average_rating(self):
         return self.ratings.aggregate(avg=Avg("rating"))["avg"]
 
-    # def average_rating(self, obj):
-    #     return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
+    def average_rating(self):
+        avg = self.ratings.aggregate(avg=Avg("rating"))["avg"]
+
+        return avg if avg is not None else 0
 
 
 class HotelRoom(RateableModel):

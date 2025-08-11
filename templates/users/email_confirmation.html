@@ -1,8 +1,17 @@
+{% load static%}
 {% autoescape off %}
+<img src="{% static "logo/logo.png" %}" 
+     alt="Cultour Logo" 
+     style="max-width: 150px; display: block; margin-bottom: 20px;">
 
-Welcome to cultour - cultor Account Activation
-Hello {{ name }}
-Please verify your email by clicking on the following link.
-Confirmation Link: https://{{ domain }}{% url 'users:activate' uidb64=uid  token=token %}
+Welcome to Cultour - Cultour Account Activation  
+Hello {{ name }},  
+
+Please verify your email by clicking the button below:  
+
+<a href="https://{{ domain }}{% url 'users:activate' uidb64=uid token=token %}" 
+   style="display: inline-block; padding: 10px 20px; background-color: orange; color: black; text-decoration: none; font-weight: bold; border-radius: 5px;">
+   Confirm Email
+</a>
 
 {% endautoescape %}

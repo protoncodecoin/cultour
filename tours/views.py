@@ -28,7 +28,7 @@ def contact_us(request):
 
 
 class TourListView(ListView):
-    queryset = TourSite.objects.all()
+    queryset = TourSite.objects.order_by("-createdon")
     context_object_name = "toursites"
     paginate_by = 10
     template_name = "tours/toursites.html"

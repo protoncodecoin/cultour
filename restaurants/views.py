@@ -10,7 +10,7 @@ from restaurants.models import Restaurant, RestaurantFood, RestaurantTable
 
 
 class RestaurantListView(ListView):
-    queryset = Restaurant.objects.all()
+    queryset = Restaurant.objects.order_by("-createdon")
     context_object_name = "restaurants"
     paginate_by = 10
     template_name = "restaurant/restaurant_list.html"

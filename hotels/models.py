@@ -140,3 +140,17 @@ class HotelReservation(models.Model):
         total = fee_per_night * nights
 
         return total
+
+
+class AvailabilityRequest(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    date_from = models.DateField()
+    date_to = models.DateField()
+    guests = models.PositiveIntegerField(default=0)
+    children = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} ({self.date_from} - {self.date_to})"

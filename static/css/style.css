@@ -9345,3 +9345,15 @@ textarea.form-control {
     stroke-dashoffset: -136px; } }
 
 
+/* custom styles */
+
+
+@media (min-width: 992px) { 
+  .custom-container-padding-top {
+    padding-top: 160px;
+}
+ }
+
+
+
+

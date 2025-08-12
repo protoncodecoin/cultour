@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.conf import settings
 from django.shortcuts import render, redirect
 
@@ -12,14 +13,15 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 
-from hotels.models import HotelReservation
+from hotels.models import AvailabilityRequest, Hotel, HotelReservation
 from restaurants.models import TableReservation
 from tours.models import Tour, TourReservation, TourSite
-from users.models import Tourist
+from users.models import ContactMessage, Tourist
+from users.utils.send_mail import send_availability_email
 
 from .token import generate_token
 
-from django_countries import Countries
+from django.contrib.auth.decorators import login_required
 
 
 User = get_user_model()
@@ -54,7 +56,7 @@ def user_login(request):
             # log in the use and redirect the user to the dashboard
             login(request, user)
             messages.success(request, "login was succesful")
-            return redirect("tours:tours")
+            return redirect("tours:home")
     return render(request, "users/login.html", {"selection": "login"})
 
 
@@ -183,17 +185,83 @@ def contact_us(request):
         subject = request.POST.get("subject")
         message = request.POST.get("message")
 
-        # save message and send reply to the user.
-    return "common/contact_us.html"
+        # Save to database
+        contact = ContactMessage.objects.create(
+            name=name, email=email, subject=subject, message=message
+        )
+
+        contact.save()
+
+        # Send a confirmation email to the user
+        send_mail(
+            subject=f"Thanks for contacting us: {subject}",
+            message=f"Hello {name},\n\nWe have received your message:\n\n{message}\n\nWe will get back to you soon.",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=False,
+        )
+
+        # Success message
+        messages.success(request, "Your message has been sent successfully!")
+        return redirect("users:contact")  # Change to your contact page URL name
+
+    return render(request, "common/contact.html")
 
 
+@login_required(login_url="users:login")
 def check_availability(request):
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
-        date_from = request.POST.get("datefrom")
-        date_to = request.POST.get("date_to")
-        guests = request.POST.get("guests")
-        children = request.POST.get("children")
+        date_from_str = request.POST.get("datefrom")
+        date_to_str = request.POST.get("dateto")
+        guests = request.POST.get("guests") or 1
+        children = request.POST.get("children") or 0
+        current_hotel = request.POST.get("current_hotel")
 
-    return "common/index.html"
+        # Convert dates from frontend string to Python date object
+        try:
+            # Adjust the format string depending on your datepicker output
+            date_from = datetime.strptime(date_from_str, "%m/%d/%Y").date()
+            date_to = datetime.strptime(date_to_str, "%m/%d/%Y").date()
+        except ValueError:
+            messages.error(request, "Invalid date format.")
+            return redirect("check_availability")
+
+        current_hotel = Hotel.objects.filter(pk=current_hotel).first()
+
+        if current_hotel:
+
+            # Save request
+            AvailabilityRequest.objects.create(
+                name=name,
+                email=email,
+                date_from=date_from,
+                date_to=date_to,
+                guests=int(guests),
+                children=int(children),
+                hotel=current_hotel,
+            )
+
+            send_availability_email(
+                name,
+                email,
+                date_from,
+                date_to,
+                guests,
+                children,
+            )
+
+            messages.success(request, "Your availability request has been submitted!")
+            return redirect(request.META.get("HTTP_REFERER", "/"))
+
+        messages.success(request, "Failed to submit availability request")
+        return redirect(request.META.get("HTTP_REFERER", "/"))
+
+    return redirect(request.path)
+
+
+def policies(request):
+    context = {"current_page": "policies"}
+
+    return render(request, "common/policy.html", context=context)

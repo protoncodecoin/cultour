@@ -11,7 +11,7 @@
 
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">Tourist Dashboard</h1>
+          <h1 class="jumbotron-heading" style="padding-top: 50px;">Tourist Dashboard</h1>
           {% if user.first_name == "" or user.last_name == "" %}
             <p class="lead text-muted">Welcome, <strong style="font-size: 30px;"> {{user.username}} </strong> </p>
         {% else %}
@@ -26,6 +26,11 @@
 
       <div class="album py-5 bg-light">
         <div class="container">
+
+          {% if not hotel_reservations and not table_reservations and not booked_toursites %}
+              <h3 style="text-align: center;">Nothing has been booked yet!</h3>
+              
+          {% endif %}
 
           {% if hotel_reservations %}
           <h3>Hotel Reservation</h3>

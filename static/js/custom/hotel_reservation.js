@@ -129,12 +129,16 @@ async function verifyPayment(ref, content_type, obj_id) {
         const jsonData = await response.json();
 
         // open modal
-        document.querySelector(".reservation__room").click();
+        // document.querySelector(".reservation__room").click();
+
+        alert("Payment successful")
 
         console.log(jsonData, "from verification");
 
         return jsonData;
     } catch (error) {
+
+        alert("Payment Failed. Please try again")
         console.log(error)
     }
 

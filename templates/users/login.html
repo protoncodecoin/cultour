@@ -21,7 +21,7 @@
     <form class="form-signin" method="post" action="{% url 'users:login' %}">
         {% csrf_token %}
 
-             {% if messages %}
+        {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
                 <strong>{{ message }}</strong>
@@ -32,7 +32,7 @@
         {% endfor %}
       {% endif %}
 
-        <img class="mb-4" src="{% static 'logo/logo.png' %}" alt="" width="72" height="72">
+        <img class="mb-4" src="{% static 'logo/logo.png' %}" alt="" width="90" height="120">
       <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
       <label for="inputEmail" class="sr-only">Username</label>
       <input type="text" id="inputEmail" class="form-control cs-mrgn-btm" placeholder="Username" name="username" required autofocus>

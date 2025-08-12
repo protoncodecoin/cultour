@@ -10,14 +10,16 @@
 
 {% block content %}
     
-    <div class="hero-wrap js-fullheight" style="background-image: url('{% static "bg_images/white_bg.jpg" %}');">
+    <div class="hero-wrap js-fullheight" style="height:934px; background-image: url('{% static "bg_images/nk_bg.jpg" %}');">
       <div class="overlay custom-overlay">
        
       </div>
-      <div class="container">
+      <div class="container custom-container-padding-top
+      
+      ">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
           <div class="col-md-9 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Explore <br></strong> amazing Festivals, tourist sites, restaurants and hotels in ghana.</h1>
+            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Discover <br></strong> Ghana's festivals, attractions, foods and hotels.</h1>
             <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great tourist sites to visit, festivals to celebrate and nice places to eat or rest.</p>
             <div class="block-17 my-4">
               <form action="{% url 'tours:search' %}" method="get" class="d-block d-flex">
@@ -28,7 +30,7 @@
                   <div class="select-wrap one-third">
                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                     <select name="selected_state" id="" class="form-control" placeholder="Keyword search">
-                      <option value="#">Where</option>
+                      {% comment %} <option value="">Where</option> {% endcomment %}
                       {% for state in states %}
                         <option value="{{state.id}}">{{state.name}}</option>
                       {% endfor %}
@@ -58,7 +60,8 @@
               <div class="d-flex justify-content-center"><div class="icon"><span class="flaticon-guarantee"></span></div></div>
               <div class="media-body p-2 mt-2">
                 <h3 class="heading mb-3">Best Price Guarantee</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <p>We offer unbeatable prices so you can explore Ghana without breaking the bank.
+</p>
               </div>
             </div>      
           </div>
@@ -67,7 +70,7 @@
               <div class="d-flex justify-content-center"><div class="icon"><span class="flaticon-like"></span></div></div>
               <div class="media-body p-2 mt-2">
                 <h3 class="heading mb-3">Travellers Love Us</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <p>From first-time visitors to seasoned explorers, our guests always leave with a smile and lasting memories.</p>
               </div>
             </div>    
           </div>
@@ -76,7 +79,8 @@
               <div class="d-flex justify-content-center"><div class="icon"><span class="flaticon-detective"></span></div></div>
               <div class="media-body p-2 mt-2">
                 <h3 class="heading mb-3">Best Travel Agent</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <p>We connect you with trusted local guides to make every journey safe, smooth, and unforgettable.
+</p>
               </div>
             </div>      
           </div>
@@ -85,7 +89,7 @@
               <div class="d-flex justify-content-center"><div class="icon"><span class="flaticon-support"></span></div></div>
               <div class="media-body p-2 mt-2">
                 <h3 class="heading mb-3">Our Dedicated Support</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <p>Our team is always here to help,before, during, and after your trip.</p>
               </div>
             </div>      
           </div>
@@ -107,9 +111,9 @@
           <div class="col-md-5 heading-section ftco-animate">
           	<span class="subheading">Best Directory Website</span>
             <h2 class="mb-4 pb-3"><strong>Why</strong> Choose Us?</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life.</p>
-            <p><a href="#" class="btn btn-primary btn-outline-primary mt-4 px-4 py-3">Read more</a></p>
+            <p>At Cultour Gh, we bring Ghana closer to you, its beauty, culture, and hidden experience. With trusted local partners, affordable prices, and friendly support, your journey is in good hands from start to finish.</p>
+            {% comment %} <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life.</p> {% endcomment %}
+            {% comment %} <p><a href="#" class="btn btn-primary btn-outline-primary mt-4 px-4 py-3">Read more</a></p> {% endcomment %}
           </div>
 					<div class="col-md-1"></div>
           <div class="col-md-6 heading-section ftco-animate">
@@ -126,9 +130,9 @@
 		                    </span>
 		                  </div>
 		                  <div class="text ml-md-4">
-		                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                    <p class="name">Dennis Green</p>
-		                    <span class="position">Guest from italy</span>
+		                    <p class="mb-5">“Visiting Ghana through Cultour Gh was the best decision ever. Everything was smooth and memorable.”</p>
+		                    <p class="name">Alphones Adortse</p>
+		                    <span class="position">Guest from USA</span>
 		                  </div>
 		                </div>
 		              </div>
@@ -140,9 +144,9 @@
 		                    </span>
 		                  </div>
 		                  <div class="text ml-md-4">
-		                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                    <p class="name">Dennis Green</p>
-		                    <span class="position">Guest from London</span>
+		                    <p class="mb-5">“I felt at home the moment I arrived. The culture, the people, the service, absolutely amazing.”</p>
+		                    <p class="name">Gideon Gyamfi</p>
+		                    <span class="position">Guest from Italy</span>
 		                  </div>
 		                </div>
 		              </div>
@@ -154,8 +158,8 @@
 		                    </span>
 		                  </div>
 		                  <div class="text ml-md-4">
-		                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                    <p class="name">Dennis Green</p>
+		                    <p class="mb-5">“Every detail was perfect. I discovered places I never would have found on my own.”</p>
+		                    <p class="name">Diana Acheampong</p>
 		                    <span class="position">Guest from Philippines</span>
 		                  </div>
 		                </div>

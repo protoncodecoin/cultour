@@ -4,7 +4,7 @@
 {% block title %} {% endblock%}
 
 {% block content %}
-    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'bg_images/resort.jpg' %}');">
+    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'bg_images/hotel_bg_med2.jpg' %}');">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -108,7 +108,7 @@
 				{% for hotel in hotels %}
 		    			<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="hotel-single.html" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{hotel.cover_image.url}});">
+		    					<a href="{% url 'hotels:hotel_detail' hotel.pk %}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{hotel.cover_image.url}});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
@@ -117,7 +117,7 @@
 		    						<div class="d-flex">
 										{% comment %} <div class="one"> {% endcomment %}
 		    							<div >
-				    						<h3><a href="hotel-single.html">{{hotel.name}}, {{hotel.city.name}}</a></h3>
+				    						<h3><a href="{% url 'hotels:hotel_detail' hotel.pk %}">{{hotel.name}}, {{hotel.city.name}}</a></h3>
 				    						<p class="rate">
 				    							<i class="icon-star"></i>
 				    							<i class="icon-star"></i>
@@ -143,21 +143,7 @@
 				{% endfor %}
 		    			
           	</div>
-          	<div class="row mt-5">
-		          <div class="col text-center">
-		            <div class="block-27">
-		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
-		              </ul>
-		            </div>
-		          </div>
-		        </div>
+          	{% include "common/pagination.html" with posts=hotels %}
           </div> <!-- .col-md-8 -->
         </div>
       </div>

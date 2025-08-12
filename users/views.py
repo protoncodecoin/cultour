@@ -16,7 +16,7 @@ from django.utils.encoding import force_bytes, force_str
 from hotels.models import AvailabilityRequest, Hotel, HotelReservation
 from restaurants.models import TableReservation
 from tours.models import Tour, TourReservation, TourSite
-from users.models import ContactMessage, Tourist
+from users.models import Tourist
 from users.utils.send_mail import send_availability_email
 
 from .token import generate_token

@@ -105,7 +105,7 @@
 				{% for restaurant in restaurants %}
 		    			<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="{% url 'restaurants:restaurant_detail' %}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{restaurant.cover_image.url}});">
+		    					<a href="{% url 'restaurants:restaurant_detail' restaurant.pk %}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{restaurant.cover_image.url}});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>

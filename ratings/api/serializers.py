@@ -31,9 +31,9 @@ class RatingSerializer(serializers.ModelSerializer):
             content_type = ContentType.objects.get(model=model.lower())
             model_class = content_type.model_class()
 
-            print("actual: ", actual_content_type, related_model, related_model_class)
+            # print("actual: ", actual_content_type, related_model, related_model_class)
 
-            print("model: ", model_class, content_type, object_id)
+            # print("model: ", model_class, content_type, object_id)
 
             if isinstance(obj, TableReservation):
                 # restaurant

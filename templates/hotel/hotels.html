@@ -119,13 +119,16 @@
 		    							<div >
 				    						<h3><a href="{% url 'hotels:hotel_detail' hotel.pk %}">{{hotel.name}}, {{hotel.city.name}}</a></h3>
 				    						<p class="rate">
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star-o"></i>
-				    							<span>{{hotel.average_rating}} Rating</span>
-				    						</p>
+    {% for i in "12345" %}
+        {% if i|add:"0" <= hotel.average_rating %}
+            <i class="icon-star"></i>
+        {% else %}
+            <i class="icon-star-o"></i>
+        {% endif %}
+    {% endfor %}
+    <span>{{ hotel.average_rating }} Rating</span>
+</p>
+
 			    						</div>
 			    						{% comment %} <div class="two">
 			    							<span class="price per-price">₵{{hotel.fee}}<br><small>/night</small></span>

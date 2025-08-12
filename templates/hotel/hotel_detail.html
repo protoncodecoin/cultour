@@ -108,14 +108,17 @@
           			<h2>{{hotel.name}}</h2>
           			<p class="rate mb-5">
           				<span class="loc"><a href="{% url 'hotels:rooms' hotel.pk %}"><i class="icon-map"></i>{{hotel.address}}</a></span>
-          				<span class="star">
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star-o"></i>
-    							{{hotel.average_rating}} Rating</span>
-    						</p>
+          				<p class="rate">
+    {% for i in "12345" %}
+        {% if i|add:"0" <= room.average_rating %}
+            <i class="icon-star"></i>
+        {% else %}
+            <i class="icon-star-o"></i>
+        {% endif %}
+    {% endfor %}
+    <span>{{ hotel.average_rating }} Rating</span>
+</p>
+
     						<p>{{hotel.notes}}</p>
     						{% comment %} <div class="d-md-flex mt-5 mb-5">
     							<ul>

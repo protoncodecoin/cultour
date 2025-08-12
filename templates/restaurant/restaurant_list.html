@@ -105,7 +105,7 @@
 				{% for restaurant in restaurants %}
 		    			<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="hotel-single.html" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{restaurant.cover_image.url}});">
+		    					<a href="{% url 'restaurants:restaurant_detail' %}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{restaurant.cover_image.url}});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
@@ -113,15 +113,18 @@
 		    					<div class="text p-3">
 		    						<div class="d-flex">
 		    							<div class="one cs-spacing">
-				    						<h3><a href="hotel-single.html">{{restaurant.name}}, {{restaurant.city.name}}</a></h3>
+				    						<h3><a href="{% url 'restaurants:restaurant_detail' restaurant.pk %}">{{restaurant.name}}, {{restaurant.city.name}}</a></h3>
 				    						<p class="rate">
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star-o"></i>
-				    							<span>{{restaurant.average_rating}} Rating</span>
-				    						</p>
+    {% for i in "12345" %}
+        {% if i|add:"0" <= restaurant.average_rating %}
+            <i class="icon-star"></i>
+        {% else %}
+            <i class="icon-star-o"></i>
+        {% endif %}
+    {% endfor %}
+    <span>{{ restaurant.average_rating }} Rating</span>
+</p>
+
 			    						</div>
 		    						</div>
 		    						<p>{{restaurant.notes|truncatechars:40}}</p>

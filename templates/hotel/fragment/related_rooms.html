@@ -11,13 +11,15 @@
 						<div class="one">
 							<h3><a href="{% url 'hotels:room_detail' room.hotel.pk room.pk %}">{{ room.name }}, {{room.room_type}}</a></h3>
 							<p class="rate">
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star-o"></i>
-								<span>{{room.rating }} Rating</span>
-							</p>
+                                {% for i in "12345" %}
+                                    {% if i|add:"0" <= room.average_rating %}
+                                        <i class="icon-star"></i>
+                                    {% else %}
+                                        <i class="icon-star-o"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span>{{ room.average_rating }} Rating</span>
+                            </p>
 						</div>
 						<div class="two">
 							<span class="price per-price">₵

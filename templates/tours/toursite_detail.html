@@ -76,8 +76,8 @@
 
     {% if tours %}
     <h3 class="about-title" style="text-align: center;padding-top: 10px;">Tour Packages</h3>
-    {% else %}
-     <h3 class="about-title" style="text-align: center;padding-top: 10px; padding-bottom: 20px;">No Tour Packages</h3>
+    {% comment %} {% else %}
+     <h3 class="about-title" style="text-align: center;padding-top: 10px; padding-bottom: 20px;">No Tour Packages</h3> {% endcomment %}
     {% endif %}
     <div class="row justify-content-md-center">
 
@@ -95,13 +95,15 @@
 											<div class="one">
 												<h3><a href="{% url 'tours:tour-detail' site.pk %}">{{site.site}}, {{site.city}}</a></h3>
 												<p class="rate">
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star-o"></i>
-													<span>{{site.average_rating}} Rating</span>
-												</p>
+                                {% for i in "12345" %}
+                                    {% if i|add:"0" <= hotel.average_rating %}
+                                        <i class="icon-star"></i>
+                                    {% else %}
+                                        <i class="icon-star-o"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span>{{ hotel.average_rating }} Rating</span>
+                            </p>
 											</div>
 											{% comment %} <div class="two">
 												<span class="price">$200</span>

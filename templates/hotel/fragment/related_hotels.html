@@ -5,29 +5,33 @@
         {% for hotel in related_hotels %}
         <div class="col-md-5">
             <div class="destination">
-                <a href="hotel-single.html" class="img img-2" style="background-image: url({{hotel.cover_image.url}});"></a>
+                <a href="{% url 'hotels:hotel_detail' hotel.pk %}" class="img img-2" style="background-image: url({{hotel.cover_image.url}});"></a>
                 <div class="text p-3">
                     <div class="d-flex">
                         <div class="one">
-                            <h3><a href="hotel-single.html">{{hotel.name}}, {{hotel.city.name}}</a></h3>
+                            <h3><a href="{% url 'hotels:hotel_detail' hotel.pk %}">{{hotel.name}}, {{hotel.city.name}}</a></h3>
                             <p class="rate">
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star-o"></i>
-                                <span>{{hotel.rating}} Rating</span>
+                                {% for i in "12345" %}
+                                    {% if i|add:"0" <= hotel.average_rating %}
+                                        <i class="icon-star"></i>
+                                    {% else %}
+                                        <i class="icon-star-o"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span>{{ hotel.average_rating }} Rating</span>
                             </p>
+
                         </div>
                         <div class="two">
-                            <span class="price per-price">${{hotel.fee}}<br><small>/night</small></span>
+                            <span class="price per-price">₵
+{{hotel.fee}}<br><small></small></span>
                         </div>
                     </div>
                     <p>{{hotel.notes|truncatechars:42 }}</p>
                     <hr>
                     <p class="bottom-area d-flex">
                         <span><i class="icon-map-o"></i> {{hotel.city}}, {{hotel.city.state.name}}</span> 
-                        <span class="ml-auto"><a href="#">View</a></span>
+                        <span class="ml-auto"><a href="{% url 'hotels:hotel_detail' hotel.pk %}">View</a></span>
                     </p>
                 </div>
             </div>

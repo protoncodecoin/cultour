@@ -35,8 +35,10 @@ class Hotel(RateableModel):
     def calculate_average_rating(self):
         return self.ratings.aggregate(avg=Avg("rating"))["avg"]
 
-    # def average_rating(self, obj):
-    #     return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
+    def average_rating(self):
+        avg = self.ratings.aggregate(avg=Avg("rating"))["avg"]
+
+        return avg if avg is not None else 0
 
 
 class HotelRoom(RateableModel):
@@ -67,8 +69,13 @@ class HotelRoom(RateableModel):
     def __str__(self):
         return self.name
 
-    def average_rating(self, obj):
-        return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
+    # def average_rating(self, obj):
+    #     return obj.ratings.aggregate(avg=Avg("rating"))["avg"]
+
+    def average_rating(self):
+        avg = self.ratings.aggregate(avg=Avg("rating"))["avg"]
+
+        return avg if avg != None else 0
 
 
 class HotelReservation(models.Model):
@@ -133,3 +140,17 @@ class HotelReservation(models.Model):
         total = fee_per_night * nights
 
         return total
+
+
+class AvailabilityRequest(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    date_from = models.DateField()
+    date_to = models.DateField()
+    guests = models.PositiveIntegerField(default=0)
+    children = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} ({self.date_from} - {self.date_to})"

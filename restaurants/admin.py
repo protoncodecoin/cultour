@@ -15,7 +15,7 @@ class RestaurantAdmin(admin.ModelAdmin):
         "owner",
         "name",
         "city",
-        "average_rating",
+        # "average_rating",
         "createdon",
         "updatedon",
     ]

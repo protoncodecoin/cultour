@@ -12,13 +12,13 @@
 						{% for festival in featured_festivals %}
     					<div class="item">
 		    				<div class="destination">
-		    					<a href="#" class="img d-flex justify-content-center align-items-center" style="background-image: url({{festival.cover_image.url}});">
+		    					<a href="{% url 'festivals:detail_festival' festival.pk %}" class="img d-flex justify-content-center align-items-center" style="background-image: url({{festival.cover_image.url}});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
 		    							<span class="icon-search2"></span>
 		    						</div>
 		    					</a>
 		    					<div class="text p-3">
-		    						<h3><a href="#">{{festival.city.name}}, {{festival.city.state.name}}</a></h3>
+		    						<h3><a href="{% url 'festivals:detail_festival' festival.pk %}">{{festival.name}}</a></h3>
 		    						<span class="listing">{{festival.city}}, {{ festival.city.state.name}}</span>
 		    					</div>
 		    				</div>

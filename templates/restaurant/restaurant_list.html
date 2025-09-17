@@ -4,7 +4,7 @@
 {% block title %} {% endblock%}
 
 {% block content %}
-    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'images/bg_5.jpg' %}');">
+    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'bg_images/rest_5.jpg' %}');">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -64,7 +64,7 @@
 		            </div>
 	            </form>
         		</div>
-        		<div class="sidebar-wrap bg-light ftco-animate">
+        		{% comment %} <div class="sidebar-wrap bg-light ftco-animate">
         			<h3 class="heading mb-4">Star Rating</h3>
         			<form method="post" class="star-rating">
 							  <div class="form-check">
@@ -98,14 +98,14 @@
 							    </label>
 							  </div>
 							</form>
-        		</div>
+        		</div> {% endcomment %}
           </div>
           <div class="col-lg-9">
           	<div class="row">
 				{% for restaurant in restaurants %}
 		    			<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="hotel-single.html" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{restaurant.cover_image.url}});">
+		    					<a href="{% url 'restaurants:restaurant_detail' restaurant.pk %}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{restaurant.cover_image.url}});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
@@ -113,15 +113,18 @@
 		    					<div class="text p-3">
 		    						<div class="d-flex">
 		    							<div class="one cs-spacing">
-				    						<h3><a href="hotel-single.html">{{restaurant.name}}, {{restaurant.city.name}}</a></h3>
+				    						<h3><a href="{% url 'restaurants:restaurant_detail' restaurant.pk %}">{{restaurant.name}}, {{restaurant.city.name}}</a></h3>
 				    						<p class="rate">
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star-o"></i>
-				    							<span>{{restaurant.rating}} Rating</span>
-				    						</p>
+    {% for i in "12345" %}
+        {% if i|add:"0" <= restaurant.average_rating %}
+            <i class="icon-star"></i>
+        {% else %}
+            <i class="icon-star-o"></i>
+        {% endif %}
+    {% endfor %}
+    <span>{{ restaurant.average_rating }} Rating</span>
+</p>
+
 			    						</div>
 		    						</div>
 		    						<p>{{restaurant.notes|truncatechars:40}}</p>
@@ -136,22 +139,8 @@
 
 					{% endfor %}
           	</div>
-          	<div class="row mt-5">
-		          <div class="col text-center">
-		            <div class="block-27">
-		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
-		              </ul>
-		            </div>
-		          </div>
-		        </div>
-          </div> <!-- .col-md-8 -->
+			{% comment %} Pagination Goes here {% endcomment %}
+			{% include 'common/pagination.html' with page=restaurants%}
         </div>
       </div>
     </section> <!-- .section -->

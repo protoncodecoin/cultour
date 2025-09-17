@@ -34,7 +34,7 @@ class CreateHotelReservation(APIView):
         )
         if serializer.is_valid():
             amount = serializer.validated_data["table"].fee
-            print(amount)
+            # print(amount)
             reservation = serializer.save()
             content_type = Payment.get_content_type("TableReservation")
             payment = Payment.objects.create(

@@ -12,4 +12,7 @@ urlpatterns = [
     # path("dashboard/", views.dashboard, name="dashboard"),
     path("dashboard/<int:pk>/", views.DashBoardView.as_view(), name="dashboard"),
     path("activation/<uidb64>/<token>/", views.activate, name="activate"),
+    path("contact-us/", views.contact_us, name="contact"),
+    path("check-availability", views.check_availability, name="check_availability"),
+    path("policies/", views.policies, name="policies"),
 ]

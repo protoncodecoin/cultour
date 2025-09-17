@@ -11,7 +11,7 @@ from gallery.models import Gallery
 class GalleryListView(ListView):
     queryset = Gallery.objects.all()
     context_object_name = "gallery_images"
-    paginate_by = 10
+    paginate_by = 100
     template_name = "common/gallery.html"
 
     def get_context_data(self, **kwargs: Any):

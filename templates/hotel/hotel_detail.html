@@ -7,7 +7,7 @@
 
  {% block content %}
      
-    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'images/bg_5.jpg' %}');">
+    <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'bg_images/detail_rest.jpg' %}');">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -50,7 +50,7 @@
 		            </div>
 	            </form>
         		</div>
-        		<div class="sidebar-wrap bg-light ftco-animate">
+        		{% comment %} <div class="sidebar-wrap bg-light ftco-animate">
         			<h3 class="heading mb-4">Star Rating</h3>
         			<form method="post" class="star-rating">
 							  <div class="form-check">
@@ -84,7 +84,7 @@
 							    </label>
 							  </div>
 							</form>
-        		</div>
+        		</div> {% endcomment %}
           </div>
           <div class="col-lg-9">
           	<div class="row">
@@ -104,18 +104,21 @@
           			</div>
           		</div>
           		<div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-          			<span>Our Best hotels &amp; Rooms</span>
+          			<span>Our Best Rooms</span>
           			<h2>{{hotel.name}}</h2>
           			<p class="rate mb-5">
-          				<span class="loc"><a href="#"><i class="icon-map"></i>{{hotel.address}}</a></span>
-          				<span class="star">
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star-o"></i>
-    							{{hotel.rating}} Rating</span>
-    						</p>
+          				<span class="loc"><a href="{% url 'hotels:rooms' hotel.pk %}"><i class="icon-map"></i>{{hotel.address}}</a></span>
+          				<p class="rate">
+    {% for i in "12345" %}
+        {% if i|add:"0" <= room.average_rating %}
+            <i class="icon-star"></i>
+        {% else %}
+            <i class="icon-star-o"></i>
+        {% endif %}
+    {% endfor %}
+    <span>{{ hotel.average_rating }} Rating</span>
+</p>
+
     						<p>{{hotel.notes}}</p>
     						{% comment %} <div class="d-md-flex mt-5 mb-5">
     							<ul>
@@ -240,35 +243,49 @@
           			</div>
           		</div>
 				 {% endcomment %}
-          		{% comment %} <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+          		 <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+					 {% if messages %}
+						{% for message in messages %}
+							<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+								<strong>{{ message }}</strong>
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						{% endfor %}
+      				{% endif %}
           			<h4 class="mb-5">Check Availability &amp; Booking</h4>
+					<form method="post" action="{% url 'users:check_availability' %}">
+						{% csrf_token %}
+					<input type="hidden" id="current_hotel" class="form-control"  name="current_hotel" value="{{hotel.pk}}">
           			<div class="fields">
           				<div class="row">
           					<div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" class="form-control" placeholder="Name">
+				                <input type="text" class="form-control" placeholder="Name" name="name">
 				              </div>
 			              </div>
 			              <div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" class="form-control" placeholder="Email">
+				                <input type="text" class="form-control" placeholder="Email" name="email">
 				              </div>
 			              </div>
 			              <div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" id="checkin_date" class="form-control" placeholder="Date from">
+				                <input type="text" id="checkin_date" class="form-control" placeholder="Date from" name="dateto">
 				              </div>
 			              </div>
 			              <div class="col-md-6">
 				              <div class="form-group">
-				                <input type="text" id="checkin_date" class="form-control" placeholder="Date to">
+				                <input type="text" id="checkin_date" class="form-control" placeholder="Date to" name="datefrom">
 				              </div>
 				            </div>
+							
 				            <div class="col-md-6">
 					            <div class="form-group">
 				                <div class="select-wrap one-third">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-			                    <select name="" id="" class="form-control" placeholder="Guest">
+			                    <select name="guests" id="" class="form-control" placeholder="Guest">
 			                      <option value="0">Guest</option>
 			                      <option value="1">1</option>
 			                      <option value="2">2</option>
@@ -282,7 +299,7 @@
 					            <div class="form-group">
 				                <div class="select-wrap one-third">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-			                    <select name="" id="" class="form-control" placeholder="Children">
+			                    <select name="children" id="" class="form-control" placeholder="Children">
 			                      <option value="0">Children</option>
 			                      <option value="1">1</option>
 			                      <option value="2">2</option>
@@ -299,7 +316,8 @@
 			              </div>
 		              </div>
 		            </div>
-          		</div> {% endcomment %}
+					</form>
+          		</div>
           		{% comment %} <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
           			<h4 class="mb-4">Review &amp; Ratings</h4>
           			<div class="row">

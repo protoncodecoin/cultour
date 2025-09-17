@@ -5,22 +5,25 @@
 		{% for room in hotel_rooms %}
 		<div class="col-md-5">
 			<div class="destination">
-				<a href="hotel-single.html" class="img img-2" style="background-image: url({{room.image.url}});"></a>
+				<a href="{% url 'hotels:room_detail' room.hotel.pk room.pk %}" class="img img-2" style="background-image: url({{room.image.url}});"></a>
 				<div class="text p-3">
 					<div class="d-flex">
 						<div class="one">
-							<h3><a href="hotel-single.html">{{ room.name }}, {{room.room_type}}</a></h3>
+							<h3><a href="{% url 'hotels:room_detail' room.hotel.pk room.pk %}">{{ room.name }}, {{room.room_type}}</a></h3>
 							<p class="rate">
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star-o"></i>
-								<span>{{room.rating }} Rating</span>
-							</p>
+                                {% for i in "12345" %}
+                                    {% if i|add:"0" <= room.average_rating %}
+                                        <i class="icon-star"></i>
+                                    {% else %}
+                                        <i class="icon-star-o"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span>{{ room.average_rating }} Rating</span>
+                            </p>
 						</div>
 						<div class="two">
-							<span class="price per-price">${{room.fee}}<br><small>/night</small></span>
+							<span class="price per-price">₵
+{{room.fee}}<br><small></small></span>
 						</div>
 					</div>
 					<p>{{room.notes | truncatechars:50 }}</p>

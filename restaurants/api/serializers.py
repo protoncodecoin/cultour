@@ -46,7 +46,7 @@ class TableReservationSerializer(ModelSerializer):
         user_obj = User.objects.filter(pk=user.pk).first()
         tourist = Tourist.objects.filter(user=user_obj).first()
         # reservation_table = RestaurantTable.objects.get(id=attrs["table"])
-        print(attrs["table"])
+        # print(attrs["table"])
 
         if user_obj is None:
             raise serializers.ValidationError("User is not found")
@@ -57,7 +57,7 @@ class TableReservationSerializer(ModelSerializer):
         # if reservation_table is None:
         #     raise serializers.ValidationError("Reservation table not found")
 
-        print(user_obj, tourist)
+        # print(user_obj, tourist)
         # attrs["table"] = reservation_table.pk
         attrs["user"] = tourist
 

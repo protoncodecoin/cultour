@@ -35,13 +35,16 @@
     <link rel="stylesheet" href="{% static 'css/room-details.css' %}">
     <link rel="stylesheet" href="{% static 'css/restaurant-list.css' %}">
      <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+     <link rel="stylesheet" href="{% static 'css/policies.css' %}">
+
 
   </head>
   <body>
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'tours:home' %}">cultour.</a>
+      <a class="navbar-brand" href="{% url 'tours:home' %}"><img class="mb-4" src="{% static 'logo/logo.png' %}" alt="cultour logo" width="70" height="90"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -52,7 +55,7 @@
 
           <li class="nav-item {% if current_page == "about"%} active {% else %} "" {% endif %} "><a href="{% url 'tours:about' %}" class="nav-link">About</a></li>
 
-          <li class="nav-item {% if current_page == "tour"%} active {% else %} "" {% endif %} "><a href="{% url 'tours:tours' %}" class="nav-link">Tour</a></li>
+          <li class="nav-item {% if current_page == "tour"%} active {% else %} "" {% endif %} "><a href="{% url 'tours:tours' %}" class="nav-link">Tourist Sites</a></li>
 
           <li class="nav-item {% if current_page == "festival"%} active {% else %} "" {% endif %} "><a href="{% url 'festivals:festivals' %}" class="nav-link">Festivals</a></li>
 
@@ -64,8 +67,11 @@
 
           <li class="nav-item {% if current_page == "contact"%} active {% else %} "" {% endif %} "><a href="{% url 'tours:contact' %}" class="nav-link">Contact</a></li>
 
+          <li class="nav-item {% if current_page == "policies"%} active {% else %} "" {% endif %} "><a href="{% url 'users:policies' %}" class="nav-link">Policies</a></li>
+
           {% if user.is_authenticated %}
-          <li class="nav-item cta"><a href="{% url 'users:dashboard' user.tourist.pk %}" class="nav-link"><span>My Account</span></a></li>
+          <li style="padding-right: 5px;" class="nav-item cta"><a href="{% url 'users:dashboard' user.tourist.pk %}" class="nav-link"><span>Account</span></a></li>
+          <li  class="nav-item cta"><a style="background-color: red;" href="{% url 'users:logout' %}" class="nav-link"><span>Logout</span></a></li>
           {% else %}
           <li class="nav-item cta"><a href="{% url 'users:signup' %}" class="nav-link"><span>Sign Up</span></a></li>
           {% endif %}
@@ -85,7 +91,7 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">cultour</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>At Cultour Gh, we bring Ghana closer to you, its beauty, culture, and hidden experience. With trusted local partners, affordable prices, and friendly support, your journey is in good hands from start to finish.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -97,12 +103,12 @@
             <div class="ftco-footer-widget mb-4 ml-md-5">
               <h2 class="ftco-heading-2">Information</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">About</a></li>
+                <li><a href="{% url 'tours:about' %}" class="py-2 d-block">About</a></li>
                 <li><a href="#" class="py-2 d-block">Service</a></li>
-                <li><a href="#" class="py-2 d-block">Terms and Conditions</a></li>
-                <li><a href="#" class="py-2 d-block">Become a partner</a></li>
-                <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+                <li><a href="{% url 'users:policies' %}" class="py-2 d-block">Terms and Conditions</a></li>
+                {% comment %} <li><a href="#" class="py-2 d-block">Become a partner</a></li> {% endcomment %}
+                {% comment %} <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li> {% endcomment %}
+                <li><a href="{% url 'users:policies' %}" class="py-2 d-block">Privacy and Policy</a></li>
               </ul>
             </div>
           </div>
@@ -110,11 +116,11 @@
              <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Customer Support</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-                <li><a href="#" class="py-2 d-block">How it works</a></li>
-                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                {% comment %} <li><a href="#" class="py-2 d-block">FAQ</a></li> {% endcomment %}
+                {% comment %} <li><a href="#" class="py-2 d-block">Payment Option</a></li> {% endcomment %}
+                {% comment %} <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
+                <li><a href="#" class="py-2 d-block">How it works</a></li> {% endcomment %}
+                <li><a href="{% url 'users:contact' %}" class="py-2 d-block">Contact Us</a></li>
               </ul>
             </div>
           </div>
@@ -123,9 +129,9 @@
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Ayiduase New Site, Ghana</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+233 200 563 586</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">cultour@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -134,8 +140,8 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            <p style="color: #222831;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a style="color: #222831;" href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>

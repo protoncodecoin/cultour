@@ -53,6 +53,7 @@
 
 
 
+
 /* small devices (landscape phones, 576px and up) */
 @media (max-width: 575.98px) {
     .tour-detail {
@@ -111,3 +112,12 @@
       width: 100%;
       height: auto;
     } */
+
+
+@media (min-width: 900px) {
+    .cs-padding-top {
+        padding-top: 90px;
+        background-color: #50a875;
+    }
+
+}

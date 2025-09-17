@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from users.models import (
+    ContactMessage,
     FestivalOwner,
     HotelOwner,
     RestaurantOwner,
@@ -53,3 +54,9 @@ class RestaurantOwner(admin.ModelAdmin):
     list_display = ["user", "image", "createdon", "updatedon"]
     list_filter = ["createdon", "updatedon"]
     ordering = ["createdon", "updatedon"]
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ["name", "email", "subject", "created_at"]
+    list_filter = ["email", "created_at"]
